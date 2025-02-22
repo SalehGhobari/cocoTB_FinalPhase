@@ -1,0 +1,275 @@
+# Reading pref.tcl
+# do SuperScalar_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/BranchPredictionUnit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/BranchPredictionUnit.v 
+# -- Compiling module BranchPredictionUnit
+# 
+# Top level modules:
+# 	BranchPredictionUnit
+# End time: 02:10:30 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v 
+# -- Compiling module mux2x1
+# -- Compiling module mux2x1En
+# -- Compiling module mux3to1
+# -- Compiling module mux5to1
+# 
+# Top level modules:
+# 	mux2x1
+# 	mux2x1En
+# 	mux3to1
+# 	mux5to1
+# End time: 02:10:30 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v 
+# -- Compiling module processor
+# 
+# Top level modules:
+# 	processor
+# End time: 02:10:30 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/registerFile.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/registerFile.v 
+# -- Compiling module registerFile
+# 
+# Top level modules:
+# 	registerFile
+# End time: 02:10:30 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/controlUnit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/controlUnit.v 
+# -- Compiling module controlUnit
+# 
+# Top level modules:
+# 	controlUnit
+# End time: 02:10:30 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ALU.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:30 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ALU.v 
+# -- Compiling module ALU
+# 
+# Top level modules:
+# 	ALU
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/signextender.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/signextender.v 
+# -- Compiling module signextender
+# 
+# Top level modules:
+# 	signextender
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/programCounter.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/programCounter.v 
+# -- Compiling module programCounter
+# 
+# Top level modules:
+# 	programCounter
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/adder.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/adder.v 
+# -- Compiling module adder
+# 
+# Top level modules:
+# 	adder
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ANDGate.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ANDGate.v 
+# -- Compiling module ANDGate
+# -- Compiling module AND3Gate
+# 
+# Top level modules:
+# 	ANDGate
+# 	AND3Gate
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/XNOR.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/XNOR.v 
+# -- Compiling module XNORGate
+# 
+# Top level modules:
+# 	XNORGate
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Pipes.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Pipes.v 
+# -- Compiling module pipe
+# 
+# Top level modules:
+# 	pipe
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Comparator.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Comparator.v 
+# -- Compiling module Comparator
+# 
+# Top level modules:
+# 	Comparator
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/forwardingUnit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/forwardingUnit.v 
+# -- Compiling module ForwardingUnit
+# 
+# Top level modules:
+# 	ForwardingUnit
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/HazardDetectionUnit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/HazardDetectionUnit.v 
+# -- Compiling module HazardDetectionUnit
+# 
+# Top level modules:
+# 	HazardDetectionUnit
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ORGate.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ORGate.v 
+# -- Compiling module ORGate
+# -- Compiling module ORGate4
+# 
+# Top level modules:
+# 	ORGate
+# 	ORGate4
+# End time: 02:10:31 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/pcCorrection.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:31 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/pcCorrection.v 
+# -- Compiling module pcCorrection
+# 
+# Top level modules:
+# 	pcCorrection
+# End time: 02:10:32 on Feb 23,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:32 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v 
+# -- Compiling module dual_issue_data_memory
+# 
+# Top level modules:
+# 	dual_issue_data_memory
+# End time: 02:10:32 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:32 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v 
+# -- Compiling module dual_issue_inst_mem
+# 
+# Top level modules:
+# 	dual_issue_inst_mem
+# End time: 02:10:32 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation\ Phase/SuperScalar {C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:10:32 on Feb 23,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar" C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v 
+# -- Compiling module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 02:10:32 on Feb 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs="+acc"  testbench
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs=""+acc"" testbench 
+# Start time: 02:10:32 on Feb 23,2025
+# Loading work.testbench
+# Loading work.processor
+# Loading work.programCounter
+# Loading work.adder
+# Loading work.mux2x1En
+# Loading work.dual_issue_inst_mem
+# Loading altera_mf_ver.altsyncram
+# Loading work.BranchPredictionUnit
+# Loading work.pipe
+# Loading work.controlUnit
+# Loading work.mux2x1
+# Loading work.registerFile
+# Loading work.signextender
+# Loading work.HazardDetectionUnit
+# Loading work.ORGate
+# Loading work.ORGate4
+# Loading work.ANDGate
+# Loading work.mux3to1
+# Loading work.ForwardingUnit
+# Loading work.mux5to1
+# Loading work.ALU
+# Loading work.Comparator
+# Loading work.XNORGate
+# Loading work.pcCorrection
+# Loading work.dual_issue_data_memory
+# Loading altera_mf_ver.altsyncram_body
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# Warning: read_during_write_mode_mixed_ports is assumed as               OLD_DATA
+# Time: 0  Instance: testbench.uut.instMem.altsyncram_component.m_default.altsyncram_inst
+# ** Note: $stop    : C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v(13)
+#    Time: 30004 ns  Iteration: 0  Instance: /testbench
+# Break in Module testbench at C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v line 13
+do wave.do; restart; run -all
+# Warning: read_during_write_mode_mixed_ports is assumed as               OLD_DATA
+# Time: 0  Instance: testbench.uut.instMem.altsyncram_component.m_default.altsyncram_inst
+# ** Note: $stop    : C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v(13)
+#    Time: 30004 ns  Iteration: 0  Instance: /testbench
+# Break in Module testbench at C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v line 13
+# End time: 02:11:22 on Feb 23,2025, Elapsed time: 0:00:50
+# Errors: 0, Warnings: 0

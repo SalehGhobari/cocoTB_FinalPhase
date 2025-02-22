@@ -1,0 +1,1082 @@
+Analysis & Elaboration report for SuperScalar
+Sat Feb 22 22:36:23 2025
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Elaboration Summary
+  3. Parallel Compilation
+  4. Analysis & Elaboration IP Cores Summary
+  5. Source assignments for dual_issue_inst_mem:instMem|altsyncram:altsyncram_component|altsyncram_6492:auto_generated
+  6. Source assignments for dual_issue_data_memory:DM|altsyncram:altsyncram_component|altsyncram_qrk2:auto_generated
+  7. Parameter Settings for User Entity Instance: adder:branchPcAdder
+  8. Parameter Settings for User Entity Instance: adder:nextPcAdder
+  9. Parameter Settings for User Entity Instance: adder:pcAdder
+ 10. Parameter Settings for User Entity Instance: adder:pcAdder2
+ 11. Parameter Settings for User Entity Instance: mux2x1En:instMemMux
+ 12. Parameter Settings for User Entity Instance: dual_issue_inst_mem:instMem|altsyncram:altsyncram_component
+ 13. Parameter Settings for User Entity Instance: adder:branchAdder1
+ 14. Parameter Settings for User Entity Instance: adder:branchAdder2
+ 15. Parameter Settings for User Entity Instance: pipe:IF_ID
+ 16. Parameter Settings for User Entity Instance: controlUnit:CU1
+ 17. Parameter Settings for User Entity Instance: mux2x1:CUMux1
+ 18. Parameter Settings for User Entity Instance: controlUnit:CU2
+ 19. Parameter Settings for User Entity Instance: mux2x1:CUMux2
+ 20. Parameter Settings for User Entity Instance: pipe:ID_EX_1
+ 21. Parameter Settings for User Entity Instance: pipe:ID_EX_2
+ 22. Parameter Settings for User Entity Instance: mux3to1:RFMux1
+ 23. Parameter Settings for User Entity Instance: mux3to1:RFMux2
+ 24. Parameter Settings for User Entity Instance: mux5to1:ForwardA1Mux
+ 25. Parameter Settings for User Entity Instance: mux5to1:ForwardB1Mux
+ 26. Parameter Settings for User Entity Instance: mux2x1:ALUMux1
+ 27. Parameter Settings for User Entity Instance: ALU:alu1
+ 28. Parameter Settings for User Entity Instance: mux5to1:ForwardA2Mux
+ 29. Parameter Settings for User Entity Instance: mux5to1:ForwardB2Mux
+ 30. Parameter Settings for User Entity Instance: mux2x1:ALUMux2
+ 31. Parameter Settings for User Entity Instance: ALU:alu2
+ 32. Parameter Settings for User Entity Instance: pipe:EX_MEM
+ 33. Parameter Settings for User Entity Instance: pipe:EX_MEM_2
+ 34. Parameter Settings for User Entity Instance: Comparator:comp1
+ 35. Parameter Settings for User Entity Instance: mux2x1:comp2MuxA
+ 36. Parameter Settings for User Entity Instance: mux2x1:comp2MuxB
+ 37. Parameter Settings for User Entity Instance: Comparator:comp2
+ 38. Parameter Settings for User Entity Instance: dual_issue_data_memory:DM|altsyncram:altsyncram_component
+ 39. Parameter Settings for User Entity Instance: pipe:MEM_WB1
+ 40. Parameter Settings for User Entity Instance: pipe:MEM_WB2
+ 41. Parameter Settings for User Entity Instance: mux3to1:WBMux1
+ 42. Parameter Settings for User Entity Instance: mux3to1:WBMux2
+ 43. altsyncram Parameter Settings by Entity Instance
+ 44. Analysis & Elaboration Settings
+ 45. Port Connectivity Checks: "mux3to1:WBMux2"
+ 46. Port Connectivity Checks: "mux3to1:WBMux1"
+ 47. Port Connectivity Checks: "pipe:MEM_WB1"
+ 48. Port Connectivity Checks: "mux3to1:RFMux2"
+ 49. Port Connectivity Checks: "mux3to1:RFMux1"
+ 50. Port Connectivity Checks: "mux2x1:CUMux2"
+ 51. Port Connectivity Checks: "mux2x1:CUMux1"
+ 52. Port Connectivity Checks: "adder:pcAdder2"
+ 53. Port Connectivity Checks: "adder:pcAdder"
+ 54. Port Connectivity Checks: "adder:nextPcAdder"
+ 55. Port Connectivity Checks: "adder:branchPcAdder"
+ 56. Analysis & Elaboration Messages
+ 57. Analysis & Elaboration Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Elaboration Summary                                                   ;
++------------------------------------+---------------------------------------------+
+; Analysis & Elaboration Status      ; Successful - Sat Feb 22 22:36:23 2025       ;
+; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
+; Revision Name                      ; SuperScalar                                 ;
+; Top-level Entity Name              ; processor                                   ;
+; Family                             ; MAX 10                                      ;
+; Total logic elements               ; N/A until Partition Merge                   ;
+;     Total combinational functions  ; N/A until Partition Merge                   ;
+;     Dedicated logic registers      ; N/A until Partition Merge                   ;
+; Total registers                    ; N/A until Partition Merge                   ;
+; Total pins                         ; N/A until Partition Merge                   ;
+; Total virtual pins                 ; N/A until Partition Merge                   ;
+; Total memory bits                  ; N/A until Partition Merge                   ;
+; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                   ;
+; Total PLLs                         ; N/A until Partition Merge                   ;
+; UFM blocks                         ; N/A until Partition Merge                   ;
+; ADC blocks                         ; N/A until Partition Merge                   ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Elaboration IP Cores Summary                                                                                           ;
++--------+--------------+---------+--------------+--------------+----------------------------------------+--------------------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance                        ; IP Include File          ;
++--------+--------------+---------+--------------+--------------+----------------------------------------+--------------------------+
+; Altera ; RAM: 2-PORT  ; 20.1    ; N/A          ; N/A          ; |processor|dual_issue_data_memory:DM   ; dual_issue_data_memory.v ;
+; Altera ; ROM: 2-PORT  ; 20.1    ; N/A          ; N/A          ; |processor|dual_issue_inst_mem:instMem ; dual_issue_inst_mem.v    ;
++--------+--------------+---------+--------------+--------------+----------------------------------------+--------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Source assignments for dual_issue_inst_mem:instMem|altsyncram:altsyncram_component|altsyncram_6492:auto_generated ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                  ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                   ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Source assignments for dual_issue_data_memory:DM|altsyncram:altsyncram_component|altsyncram_qrk2:auto_generated ;
++---------------------------------+--------------------+------+---------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                ;
++---------------------------------+--------------------+------+---------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                 ;
++---------------------------------+--------------------+------+---------------------------------------------------+
+
+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:branchPcAdder ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; size           ; 9     ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:nextPcAdder ;
++----------------+-------+---------------------------------------+
+; Parameter Name ; Value ; Type                                  ;
++----------------+-------+---------------------------------------+
+; size           ; 9     ; Signed Integer                        ;
++----------------+-------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:pcAdder ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; size           ; 9     ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:pcAdder2 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 9     ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1En:instMemMux ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; size           ; 9     ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: dual_issue_inst_mem:instMem|altsyncram:altsyncram_component ;
++------------------------------------+----------------------------+----------------------------------------+
+; Parameter Name                     ; Value                      ; Type                                   ;
++------------------------------------+----------------------------+----------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                          ; Untyped                                ;
+; AUTO_CARRY_CHAINS                  ; ON                         ; AUTO_CARRY                             ;
+; IGNORE_CARRY_BUFFERS               ; OFF                        ; IGNORE_CARRY                           ;
+; AUTO_CASCADE_CHAINS                ; ON                         ; AUTO_CASCADE                           ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                        ; IGNORE_CASCADE                         ;
+; WIDTH_BYTEENA                      ; 1                          ; Untyped                                ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT            ; Untyped                                ;
+; WIDTH_A                            ; 32                         ; Signed Integer                         ;
+; WIDTHAD_A                          ; 9                          ; Signed Integer                         ;
+; NUMWORDS_A                         ; 512                        ; Signed Integer                         ;
+; OUTDATA_REG_A                      ; UNREGISTERED               ; Untyped                                ;
+; ADDRESS_ACLR_A                     ; NONE                       ; Untyped                                ;
+; OUTDATA_ACLR_A                     ; NONE                       ; Untyped                                ;
+; WRCONTROL_ACLR_A                   ; NONE                       ; Untyped                                ;
+; INDATA_ACLR_A                      ; NONE                       ; Untyped                                ;
+; BYTEENA_ACLR_A                     ; NONE                       ; Untyped                                ;
+; WIDTH_B                            ; 32                         ; Signed Integer                         ;
+; WIDTHAD_B                          ; 9                          ; Signed Integer                         ;
+; NUMWORDS_B                         ; 512                        ; Signed Integer                         ;
+; INDATA_REG_B                       ; CLOCK0                     ; Untyped                                ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0                     ; Untyped                                ;
+; RDCONTROL_REG_B                    ; CLOCK1                     ; Untyped                                ;
+; ADDRESS_REG_B                      ; CLOCK0                     ; Untyped                                ;
+; OUTDATA_REG_B                      ; UNREGISTERED               ; Untyped                                ;
+; BYTEENA_REG_B                      ; CLOCK1                     ; Untyped                                ;
+; INDATA_ACLR_B                      ; NONE                       ; Untyped                                ;
+; WRCONTROL_ACLR_B                   ; NONE                       ; Untyped                                ;
+; ADDRESS_ACLR_B                     ; NONE                       ; Untyped                                ;
+; OUTDATA_ACLR_B                     ; NONE                       ; Untyped                                ;
+; RDCONTROL_ACLR_B                   ; NONE                       ; Untyped                                ;
+; BYTEENA_ACLR_B                     ; NONE                       ; Untyped                                ;
+; WIDTH_BYTEENA_A                    ; 1                          ; Signed Integer                         ;
+; WIDTH_BYTEENA_B                    ; 1                          ; Signed Integer                         ;
+; RAM_BLOCK_TYPE                     ; M9K                        ; Untyped                                ;
+; BYTE_SIZE                          ; 8                          ; Untyped                                ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                  ; Untyped                                ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ       ; Untyped                                ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ       ; Untyped                                ;
+; INIT_FILE                          ; dual_issue_inst_memory.mif ; Untyped                                ;
+; INIT_FILE_LAYOUT                   ; PORT_A                     ; Untyped                                ;
+; MAXIMUM_DEPTH                      ; 0                          ; Untyped                                ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS                     ; Untyped                                ;
+; CLOCK_ENABLE_INPUT_B               ; BYPASS                     ; Untyped                                ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                     ; Untyped                                ;
+; CLOCK_ENABLE_OUTPUT_B              ; BYPASS                     ; Untyped                                ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN            ; Untyped                                ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN            ; Untyped                                ;
+; ENABLE_ECC                         ; FALSE                      ; Untyped                                ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                      ; Untyped                                ;
+; WIDTH_ECCSTATUS                    ; 3                          ; Untyped                                ;
+; DEVICE_FAMILY                      ; MAX 10                     ; Untyped                                ;
+; CBXI_PARAMETER                     ; altsyncram_6492            ; Untyped                                ;
++------------------------------------+----------------------------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:branchAdder1 ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; size           ; 9     ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: adder:branchAdder2 ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; size           ; 9     ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:IF_ID ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; size           ; 111   ; Signed Integer                 ;
++----------------+-------+--------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controlUnit:CU1 ;
++----------------+--------+------------------------------------+
+; Parameter Name ; Value  ; Type                               ;
++----------------+--------+------------------------------------+
+; _RType         ; 000000 ; Unsigned Binary                    ;
+; _addi          ; 001000 ; Unsigned Binary                    ;
+; _lw            ; 100011 ; Unsigned Binary                    ;
+; _sw            ; 101011 ; Unsigned Binary                    ;
+; _beq           ; 000100 ; Unsigned Binary                    ;
+; _bne           ; 000101 ; Unsigned Binary                    ;
+; _jal           ; 000011 ; Unsigned Binary                    ;
+; _ori           ; 001101 ; Unsigned Binary                    ;
+; _xori          ; 010110 ; Unsigned Binary                    ;
+; _add_          ; 100000 ; Unsigned Binary                    ;
+; _sub_          ; 100010 ; Unsigned Binary                    ;
+; _and_          ; 100100 ; Unsigned Binary                    ;
+; _or_           ; 100101 ; Unsigned Binary                    ;
+; _slt_          ; 101010 ; Unsigned Binary                    ;
+; _sgt_          ; 010100 ; Unsigned Binary                    ;
+; _sll_          ; 000000 ; Unsigned Binary                    ;
+; _srl_          ; 000010 ; Unsigned Binary                    ;
+; _nor_          ; 100111 ; Unsigned Binary                    ;
+; _xor_          ; 010101 ; Unsigned Binary                    ;
+; _jr_           ; 001000 ; Unsigned Binary                    ;
+; _andi          ; 001100 ; Unsigned Binary                    ;
+; _slti          ; 001010 ; Unsigned Binary                    ;
+; _j             ; 000010 ; Unsigned Binary                    ;
++----------------+--------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:CUMux1 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; size           ; 16    ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controlUnit:CU2 ;
++----------------+--------+------------------------------------+
+; Parameter Name ; Value  ; Type                               ;
++----------------+--------+------------------------------------+
+; _RType         ; 000000 ; Unsigned Binary                    ;
+; _addi          ; 001000 ; Unsigned Binary                    ;
+; _lw            ; 100011 ; Unsigned Binary                    ;
+; _sw            ; 101011 ; Unsigned Binary                    ;
+; _beq           ; 000100 ; Unsigned Binary                    ;
+; _bne           ; 000101 ; Unsigned Binary                    ;
+; _jal           ; 000011 ; Unsigned Binary                    ;
+; _ori           ; 001101 ; Unsigned Binary                    ;
+; _xori          ; 010110 ; Unsigned Binary                    ;
+; _add_          ; 100000 ; Unsigned Binary                    ;
+; _sub_          ; 100010 ; Unsigned Binary                    ;
+; _and_          ; 100100 ; Unsigned Binary                    ;
+; _or_           ; 100101 ; Unsigned Binary                    ;
+; _slt_          ; 101010 ; Unsigned Binary                    ;
+; _sgt_          ; 010100 ; Unsigned Binary                    ;
+; _sll_          ; 000000 ; Unsigned Binary                    ;
+; _srl_          ; 000010 ; Unsigned Binary                    ;
+; _nor_          ; 100111 ; Unsigned Binary                    ;
+; _xor_          ; 010101 ; Unsigned Binary                    ;
+; _jr_           ; 001000 ; Unsigned Binary                    ;
+; _andi          ; 001100 ; Unsigned Binary                    ;
+; _slti          ; 001010 ; Unsigned Binary                    ;
+; _j             ; 000010 ; Unsigned Binary                    ;
++----------------+--------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:CUMux2 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; size           ; 16    ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:ID_EX_1 ;
++----------------+-------+----------------------------------+
+; Parameter Name ; Value ; Type                             ;
++----------------+-------+----------------------------------+
+; size           ; 167   ; Signed Integer                   ;
++----------------+-------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:ID_EX_2 ;
++----------------+-------+----------------------------------+
+; Parameter Name ; Value ; Type                             ;
++----------------+-------+----------------------------------+
+; size           ; 140   ; Signed Integer                   ;
++----------------+-------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux3to1:RFMux1 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 5     ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux3to1:RFMux2 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 5     ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux5to1:ForwardA1Mux ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; size           ; 32    ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux5to1:ForwardB1Mux ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; size           ; 32    ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:ALUMux1 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 32    ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ALU:alu1               ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; data_width     ; 32                               ; Signed Integer  ;
+; sel_width      ; 4                                ; Signed Integer  ;
+; _ADD           ; 00000000000000000000000000000000 ; Unsigned Binary ;
+; _SUB           ; 00000000000000000000000000000001 ; Unsigned Binary ;
+; _AND           ; 00000000000000000000000000000010 ; Unsigned Binary ;
+; _OR            ; 00000000000000000000000000000011 ; Unsigned Binary ;
+; _SLT           ; 00000000000000000000000000000100 ; Unsigned Binary ;
+; _SGT           ; 00000000000000000000000000000101 ; Unsigned Binary ;
+; _NOR           ; 00000000000000000000000000000110 ; Unsigned Binary ;
+; _XOR           ; 00000000000000000000000000000111 ; Unsigned Binary ;
+; _SLL           ; 00000000000000000000000000001000 ; Unsigned Binary ;
+; _SRL           ; 00000000000000000000000000001001 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux5to1:ForwardA2Mux ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; size           ; 32    ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux5to1:ForwardB2Mux ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; size           ; 32    ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:ALUMux2 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 32    ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ALU:alu2               ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; data_width     ; 32                               ; Signed Integer  ;
+; sel_width      ; 4                                ; Signed Integer  ;
+; _ADD           ; 00000000000000000000000000000000 ; Unsigned Binary ;
+; _SUB           ; 00000000000000000000000000000001 ; Unsigned Binary ;
+; _AND           ; 00000000000000000000000000000010 ; Unsigned Binary ;
+; _OR            ; 00000000000000000000000000000011 ; Unsigned Binary ;
+; _SLT           ; 00000000000000000000000000000100 ; Unsigned Binary ;
+; _SGT           ; 00000000000000000000000000000101 ; Unsigned Binary ;
+; _NOR           ; 00000000000000000000000000000110 ; Unsigned Binary ;
+; _XOR           ; 00000000000000000000000000000111 ; Unsigned Binary ;
+; _SLL           ; 00000000000000000000000000001000 ; Unsigned Binary ;
+; _SRL           ; 00000000000000000000000000001001 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:EX_MEM ;
++----------------+-------+---------------------------------+
+; Parameter Name ; Value ; Type                            ;
++----------------+-------+---------------------------------+
+; size           ; 118   ; Signed Integer                  ;
++----------------+-------+---------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:EX_MEM_2 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; size           ; 155   ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Comparator:comp1 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; size           ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:comp2MuxA ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; size           ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1:comp2MuxB ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; size           ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Comparator:comp2 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; size           ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: dual_issue_data_memory:DM|altsyncram:altsyncram_component ;
++------------------------------------+----------------------------+--------------------------------------+
+; Parameter Name                     ; Value                      ; Type                                 ;
++------------------------------------+----------------------------+--------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                          ; Untyped                              ;
+; AUTO_CARRY_CHAINS                  ; ON                         ; AUTO_CARRY                           ;
+; IGNORE_CARRY_BUFFERS               ; OFF                        ; IGNORE_CARRY                         ;
+; AUTO_CASCADE_CHAINS                ; ON                         ; AUTO_CASCADE                         ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                        ; IGNORE_CASCADE                       ;
+; WIDTH_BYTEENA                      ; 1                          ; Untyped                              ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT            ; Untyped                              ;
+; WIDTH_A                            ; 32                         ; Signed Integer                       ;
+; WIDTHAD_A                          ; 12                         ; Signed Integer                       ;
+; NUMWORDS_A                         ; 4096                       ; Signed Integer                       ;
+; OUTDATA_REG_A                      ; UNREGISTERED               ; Untyped                              ;
+; ADDRESS_ACLR_A                     ; NONE                       ; Untyped                              ;
+; OUTDATA_ACLR_A                     ; NONE                       ; Untyped                              ;
+; WRCONTROL_ACLR_A                   ; NONE                       ; Untyped                              ;
+; INDATA_ACLR_A                      ; NONE                       ; Untyped                              ;
+; BYTEENA_ACLR_A                     ; NONE                       ; Untyped                              ;
+; WIDTH_B                            ; 32                         ; Signed Integer                       ;
+; WIDTHAD_B                          ; 12                         ; Signed Integer                       ;
+; NUMWORDS_B                         ; 4096                       ; Signed Integer                       ;
+; INDATA_REG_B                       ; CLOCK0                     ; Untyped                              ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0                     ; Untyped                              ;
+; RDCONTROL_REG_B                    ; CLOCK1                     ; Untyped                              ;
+; ADDRESS_REG_B                      ; CLOCK0                     ; Untyped                              ;
+; OUTDATA_REG_B                      ; UNREGISTERED               ; Untyped                              ;
+; BYTEENA_REG_B                      ; CLOCK1                     ; Untyped                              ;
+; INDATA_ACLR_B                      ; NONE                       ; Untyped                              ;
+; WRCONTROL_ACLR_B                   ; NONE                       ; Untyped                              ;
+; ADDRESS_ACLR_B                     ; NONE                       ; Untyped                              ;
+; OUTDATA_ACLR_B                     ; NONE                       ; Untyped                              ;
+; RDCONTROL_ACLR_B                   ; NONE                       ; Untyped                              ;
+; BYTEENA_ACLR_B                     ; NONE                       ; Untyped                              ;
+; WIDTH_BYTEENA_A                    ; 1                          ; Signed Integer                       ;
+; WIDTH_BYTEENA_B                    ; 1                          ; Signed Integer                       ;
+; RAM_BLOCK_TYPE                     ; AUTO                       ; Untyped                              ;
+; BYTE_SIZE                          ; 8                          ; Untyped                              ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                   ; Untyped                              ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA                   ; Untyped                              ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_WITH_NBE_READ     ; Untyped                              ;
+; INIT_FILE                          ; dual_issue_data_memory.mif ; Untyped                              ;
+; INIT_FILE_LAYOUT                   ; PORT_A                     ; Untyped                              ;
+; MAXIMUM_DEPTH                      ; 0                          ; Untyped                              ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS                     ; Untyped                              ;
+; CLOCK_ENABLE_INPUT_B               ; BYPASS                     ; Untyped                              ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                     ; Untyped                              ;
+; CLOCK_ENABLE_OUTPUT_B              ; BYPASS                     ; Untyped                              ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN            ; Untyped                              ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN            ; Untyped                              ;
+; ENABLE_ECC                         ; FALSE                      ; Untyped                              ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                      ; Untyped                              ;
+; WIDTH_ECCSTATUS                    ; 3                          ; Untyped                              ;
+; DEVICE_FAMILY                      ; MAX 10                     ; Untyped                              ;
+; CBXI_PARAMETER                     ; altsyncram_qrk2            ; Untyped                              ;
++------------------------------------+----------------------------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:MEM_WB1 ;
++----------------+-------+----------------------------------+
+; Parameter Name ; Value ; Type                             ;
++----------------+-------+----------------------------------+
+; size           ; 81    ; Signed Integer                   ;
++----------------+-------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipe:MEM_WB2 ;
++----------------+-------+----------------------------------+
+; Parameter Name ; Value ; Type                             ;
++----------------+-------+----------------------------------+
+; size           ; 72    ; Signed Integer                   ;
++----------------+-------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux3to1:WBMux1 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 32    ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux3to1:WBMux2 ;
++----------------+-------+------------------------------------+
+; Parameter Name ; Value ; Type                               ;
++----------------+-------+------------------------------------+
+; size           ; 32    ; Signed Integer                     ;
++----------------+-------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                        ;
++-------------------------------------------+-------------------------------------------------------------+
+; Name                                      ; Value                                                       ;
++-------------------------------------------+-------------------------------------------------------------+
+; Number of entity instances                ; 2                                                           ;
+; Entity Instance                           ; dual_issue_inst_mem:instMem|altsyncram:altsyncram_component ;
+;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                                             ;
+;     -- WIDTH_A                            ; 32                                                          ;
+;     -- NUMWORDS_A                         ; 512                                                         ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                ;
+;     -- WIDTH_B                            ; 32                                                          ;
+;     -- NUMWORDS_B                         ; 512                                                         ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                                      ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                ;
+;     -- RAM_BLOCK_TYPE                     ; M9K                                                         ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                   ;
+; Entity Instance                           ; dual_issue_data_memory:DM|altsyncram:altsyncram_component   ;
+;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                                             ;
+;     -- WIDTH_A                            ; 32                                                          ;
+;     -- NUMWORDS_A                         ; 4096                                                        ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                ;
+;     -- WIDTH_B                            ; 32                                                          ;
+;     -- NUMWORDS_B                         ; 4096                                                        ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                                      ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                        ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                                    ;
++-------------------------------------------+-------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Elaboration Settings                                                                            ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; 10M50DAF484C7G     ;                    ;
+; Top-level entity name                                            ; processor          ; SuperScalar        ;
+; Family name                                                      ; MAX 10             ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation              ; All                ;                    ;
+; Restructure Multiplexers                                         ; Off                ; Auto               ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++----------------------------------------------+
+; Port Connectivity Checks: "mux3to1:WBMux2"   ;
++------------+-------+----------+--------------+
+; Port       ; Type  ; Severity ; Details      ;
++------------+-------+----------+--------------+
+; in3[31..9] ; Input ; Info     ; Stuck at GND ;
++------------+-------+----------+--------------+
+
+
++----------------------------------------------+
+; Port Connectivity Checks: "mux3to1:WBMux1"   ;
++------------+-------+----------+--------------+
+; Port       ; Type  ; Severity ; Details      ;
++------------+-------+----------+--------------+
+; in3[31..9] ; Input ; Info     ; Stuck at GND ;
++------------+-------+----------+--------------+
+
+
++------------------------------------------+
+; Port Connectivity Checks: "pipe:MEM_WB1" ;
++-------+-------+----------+---------------+
+; Port  ; Type  ; Severity ; Details       ;
++-------+-------+----------+---------------+
+; flush ; Input ; Info     ; Stuck at GND  ;
++-------+-------+----------+---------------+
+
+
++--------------------------------------------+
+; Port Connectivity Checks: "mux3to1:RFMux2" ;
++------+-------+----------+------------------+
+; Port ; Type  ; Severity ; Details          ;
++------+-------+----------+------------------+
+; in3  ; Input ; Info     ; Stuck at VCC     ;
++------+-------+----------+------------------+
+
+
++--------------------------------------------+
+; Port Connectivity Checks: "mux3to1:RFMux1" ;
++------+-------+----------+------------------+
+; Port ; Type  ; Severity ; Details          ;
++------+-------+----------+------------------+
+; in3  ; Input ; Info     ; Stuck at VCC     ;
++------+-------+----------+------------------+
+
+
++-------------------------------------------+
+; Port Connectivity Checks: "mux2x1:CUMux2" ;
++------+-------+----------+-----------------+
+; Port ; Type  ; Severity ; Details         ;
++------+-------+----------+-----------------+
+; in2  ; Input ; Info     ; Stuck at GND    ;
++------+-------+----------+-----------------+
+
+
++-------------------------------------------+
+; Port Connectivity Checks: "mux2x1:CUMux1" ;
++------+-------+----------+-----------------+
+; Port ; Type  ; Severity ; Details         ;
++------+-------+----------+-----------------+
+; in2  ; Input ; Info     ; Stuck at GND    ;
++------+-------+----------+-----------------+
+
+
++---------------------------------------------+
+; Port Connectivity Checks: "adder:pcAdder2"  ;
++-----------+-------+----------+--------------+
+; Port      ; Type  ; Severity ; Details      ;
++-----------+-------+----------+--------------+
+; in2[8..1] ; Input ; Info     ; Stuck at GND ;
+; in2[0]    ; Input ; Info     ; Stuck at VCC ;
++-----------+-------+----------+--------------+
+
+
++---------------------------------------------+
+; Port Connectivity Checks: "adder:pcAdder"   ;
++-----------+-------+----------+--------------+
+; Port      ; Type  ; Severity ; Details      ;
++-----------+-------+----------+--------------+
+; in2[8..2] ; Input ; Info     ; Stuck at GND ;
+; in2[1]    ; Input ; Info     ; Stuck at VCC ;
+; in2[0]    ; Input ; Info     ; Stuck at GND ;
++-----------+-------+----------+--------------+
+
+
++-----------------------------------------------+
+; Port Connectivity Checks: "adder:nextPcAdder" ;
++-----------+-------+----------+----------------+
+; Port      ; Type  ; Severity ; Details        ;
++-----------+-------+----------+----------------+
+; in2[8..1] ; Input ; Info     ; Stuck at GND   ;
+; in2[0]    ; Input ; Info     ; Stuck at VCC   ;
++-----------+-------+----------+----------------+
+
+
++-------------------------------------------------+
+; Port Connectivity Checks: "adder:branchPcAdder" ;
++-----------+-------+----------+------------------+
+; Port      ; Type  ; Severity ; Details          ;
++-----------+-------+----------+------------------+
+; in2[8..1] ; Input ; Info     ; Stuck at GND     ;
+; in2[0]    ; Input ; Info     ; Stuck at VCC     ;
++-----------+-------+----------+------------------+
+
+
++---------------------------------+
+; Analysis & Elaboration Messages ;
++---------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Elaboration
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Sat Feb 22 22:36:14 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off SuperScalar -c SuperScalar --analysis_and_elaboration
+Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file branchpredictionunit.v
+    Info (12023): Found entity 1: BranchPredictionUnit File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/BranchPredictionUnit.v Line: 1
+Info (12021): Found 4 design units, including 4 entities, in source file muxes.v
+    Info (12023): Found entity 1: mux2x1 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 1
+    Info (12023): Found entity 2: mux2x1En File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 15
+    Info (12023): Found entity 3: mux3to1 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 36
+    Info (12023): Found entity 4: mux5to1 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 58
+Info (12021): Found 1 design units, including 1 entities, in source file testbench.v
+    Info (12023): Found entity 1: testbench File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/testbench.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file processor.v
+    Info (12023): Found entity 1: processor File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file registerfile.v
+    Info (12023): Found entity 1: registerFile File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/registerFile.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file controlunit.v
+    Info (12023): Found entity 1: controlUnit File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/controlUnit.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file alu.v
+    Info (12023): Found entity 1: ALU File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ALU.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file signextender.v
+    Info (12023): Found entity 1: signextender File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/signextender.v Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file programcounter.v
+    Info (12023): Found entity 1: programCounter File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/programCounter.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file adder.v
+    Info (12023): Found entity 1: adder File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/adder.v Line: 3
+Info (12021): Found 2 design units, including 2 entities, in source file andgate.v
+    Info (12023): Found entity 1: ANDGate File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ANDGate.v Line: 1
+    Info (12023): Found entity 2: AND3Gate File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ANDGate.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file xnor.v
+    Info (12023): Found entity 1: XNORGate File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/XNOR.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file pipes.v
+    Info (12023): Found entity 1: pipe File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Pipes.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file comparator.v
+    Info (12023): Found entity 1: Comparator File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/Comparator.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file forwardingunit.v
+    Info (12023): Found entity 1: ForwardingUnit File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/forwardingUnit.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file hazarddetectionunit.v
+    Info (12023): Found entity 1: HazardDetectionUnit File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/HazardDetectionUnit.v Line: 1
+Info (12021): Found 2 design units, including 2 entities, in source file orgate.v
+    Info (12023): Found entity 1: ORGate File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ORGate.v Line: 1
+    Info (12023): Found entity 2: ORGate4 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/ORGate.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file pccorrection.v
+    Info (12023): Found entity 1: pcCorrection File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/pcCorrection.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file registerfile_tb.v
+    Info (12023): Found entity 1: registerFile_tb File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/registerFile_tb.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file controlunit_tb.v
+    Info (12023): Found entity 1: controlUnit_tb File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/controlUnit_tb.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file dual_issue_data_memory.v
+    Info (12023): Found entity 1: dual_issue_data_memory File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v Line: 40
+Info (12021): Found 1 design units, including 1 entities, in source file dual_issue_inst_mem.v
+    Info (12023): Found entity 1: dual_issue_inst_mem File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v Line: 40
+Info (12127): Elaborating entity "processor" for the top level hierarchy
+Info (12128): Elaborating entity "programCounter" for hierarchy "programCounter:pc" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 172
+Info (12128): Elaborating entity "adder" for hierarchy "adder:branchPcAdder" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 174
+Info (12128): Elaborating entity "mux2x1En" for hierarchy "mux2x1En:instMemMux" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 179
+Warning (10240): Verilog HDL Always Construct warning at muxes.v(25): inferring latch(es) for variable "out", which holds its previous value in one or more paths through the always construct File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[0]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[1]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[2]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[3]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[4]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[5]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[6]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[7]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (10041): Inferred latch for "out[8]" at muxes.v(25) File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/muxes.v Line: 25
+Info (12128): Elaborating entity "dual_issue_inst_mem" for hierarchy "dual_issue_inst_mem:instMem" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 187
+Info (12128): Elaborating entity "altsyncram" for hierarchy "dual_issue_inst_mem:instMem|altsyncram:altsyncram_component" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v Line: 100
+Info (12130): Elaborated megafunction instantiation "dual_issue_inst_mem:instMem|altsyncram:altsyncram_component" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v Line: 100
+Info (12133): Instantiated megafunction "dual_issue_inst_mem:instMem|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_inst_mem.v Line: 100
+    Info (12134): Parameter "address_reg_b" = "CLOCK0"
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_input_b" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_b" = "BYPASS"
+    Info (12134): Parameter "indata_reg_b" = "CLOCK0"
+    Info (12134): Parameter "init_file" = "dual_issue_inst_memory.mif"
+    Info (12134): Parameter "intended_device_family" = "MAX 10"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+    Info (12134): Parameter "numwords_a" = "512"
+    Info (12134): Parameter "numwords_b" = "512"
+    Info (12134): Parameter "operation_mode" = "BIDIR_DUAL_PORT"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_aclr_b" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
+    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
+    Info (12134): Parameter "ram_block_type" = "M9K"
+    Info (12134): Parameter "widthad_a" = "9"
+    Info (12134): Parameter "widthad_b" = "9"
+    Info (12134): Parameter "width_a" = "32"
+    Info (12134): Parameter "width_b" = "32"
+    Info (12134): Parameter "width_byteena_a" = "1"
+    Info (12134): Parameter "width_byteena_b" = "1"
+    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK0"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_6492.tdf
+    Info (12023): Found entity 1: altsyncram_6492 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/db/altsyncram_6492.tdf Line: 28
+Info (12128): Elaborating entity "altsyncram_6492" for hierarchy "dual_issue_inst_mem:instMem|altsyncram:altsyncram_component|altsyncram_6492:auto_generated" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
+Info (12128): Elaborating entity "BranchPredictionUnit" for hierarchy "BranchPredictionUnit:BPU" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 196
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:IF_ID" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 201
+Info (12128): Elaborating entity "controlUnit" for hierarchy "controlUnit:CU1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 211
+Info (12128): Elaborating entity "mux2x1" for hierarchy "mux2x1:CUMux1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 214
+Info (12128): Elaborating entity "registerFile" for hierarchy "registerFile:RegFile" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 228
+Info (12128): Elaborating entity "signextender" for hierarchy "signextender:SignExtend1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 231
+Info (12128): Elaborating entity "HazardDetectionUnit" for hierarchy "HazardDetectionUnit:HDU" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 240
+Info (12128): Elaborating entity "ORGate" for hierarchy "ORGate:CPCGate" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 242
+Info (12128): Elaborating entity "ORGate4" for hierarchy "ORGate4:hold" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 243
+Info (12128): Elaborating entity "ANDGate" for hierarchy "ANDGate:holdGate" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 244
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:ID_EX_1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 257
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:ID_EX_2" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 269
+Info (12128): Elaborating entity "mux3to1" for hierarchy "mux3to1:RFMux1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 274
+Info (12128): Elaborating entity "ForwardingUnit" for hierarchy "ForwardingUnit:FU" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 280
+Info (12128): Elaborating entity "mux5to1" for hierarchy "mux5to1:ForwardA1Mux" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 283
+Info (12128): Elaborating entity "mux2x1" for hierarchy "mux2x1:ALUMux1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 285
+Info (12128): Elaborating entity "ALU" for hierarchy "ALU:alu1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 286
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:EX_MEM" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 305
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:EX_MEM_2" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 317
+Info (12128): Elaborating entity "Comparator" for hierarchy "Comparator:comp1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 321
+Info (12128): Elaborating entity "XNORGate" for hierarchy "XNORGate:branchXnor1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 322
+Info (12128): Elaborating entity "pcCorrection" for hierarchy "pcCorrection:PCC" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 335
+Info (12128): Elaborating entity "dual_issue_data_memory" for hierarchy "dual_issue_data_memory:DM" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 348
+Info (12128): Elaborating entity "altsyncram" for hierarchy "dual_issue_data_memory:DM|altsyncram:altsyncram_component" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v Line: 104
+Info (12130): Elaborated megafunction instantiation "dual_issue_data_memory:DM|altsyncram:altsyncram_component" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v Line: 104
+Info (12133): Instantiated megafunction "dual_issue_data_memory:DM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/dual_issue_data_memory.v Line: 104
+    Info (12134): Parameter "address_reg_b" = "CLOCK0"
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_input_b" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_b" = "BYPASS"
+    Info (12134): Parameter "indata_reg_b" = "CLOCK0"
+    Info (12134): Parameter "init_file" = "dual_issue_data_memory.mif"
+    Info (12134): Parameter "intended_device_family" = "MAX 10"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+    Info (12134): Parameter "numwords_a" = "4096"
+    Info (12134): Parameter "numwords_b" = "4096"
+    Info (12134): Parameter "operation_mode" = "BIDIR_DUAL_PORT"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_aclr_b" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
+    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
+    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_a" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_WITH_NBE_READ"
+    Info (12134): Parameter "widthad_a" = "12"
+    Info (12134): Parameter "widthad_b" = "12"
+    Info (12134): Parameter "width_a" = "32"
+    Info (12134): Parameter "width_b" = "32"
+    Info (12134): Parameter "width_byteena_a" = "1"
+    Info (12134): Parameter "width_byteena_b" = "1"
+    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK0"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_qrk2.tdf
+    Info (12023): Found entity 1: altsyncram_qrk2 File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/db/altsyncram_qrk2.tdf Line: 28
+Info (12128): Elaborating entity "altsyncram_qrk2" for hierarchy "dual_issue_data_memory:DM|altsyncram:altsyncram_component|altsyncram_qrk2:auto_generated" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:MEM_WB1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 369
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:MEM_WB2" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 387
+Info (12128): Elaborating entity "mux3to1" for hierarchy "mux3to1:WBMux1" File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 394
+Info (144001): Generated suppressed messages file C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/output_files/SuperScalar.map.smsg
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4752 megabytes
+    Info: Processing ended: Sat Feb 22 22:36:23 2025
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:20
+
+
++--------------------------------------------+
+; Analysis & Elaboration Suppressed Messages ;
++--------------------------------------------+
+The suppressed messages can be found in C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/output_files/SuperScalar.map.smsg.
+
+

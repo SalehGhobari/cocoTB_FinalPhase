@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at processor.v(7): object "PC" differs only in case from object "pc" in the same scope File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/processor.v Line: 7
+Warning (10268): Verilog HDL information at registerFile.v(23): always construct contains both blocking and non-blocking assignments File: C:/Users/Ahmad/Desktop/github/JoSDC/Innovation Phase/SuperScalar/registerFile.v Line: 23

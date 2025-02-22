@@ -1,0 +1,49 @@
+--parallel_add DEVICE_FAMILY="MAX 10" MSW_SUBTRACT="NO" PIPELINE=0 REPRESENTATION="SIGNED" RESULT_ALIGNMENT="LSB" SHIFT=0 SIZE=2 WIDTH=11 WIDTHR=11 data result
+--VERSION_BEGIN 20.1 cbx_cycloneii 2020:11:11:17:06:45:SJ cbx_lpm_add_sub 2020:11:11:17:06:45:SJ cbx_mgl 2020:11:11:17:08:38:SJ cbx_nadder 2020:11:11:17:06:46:SJ cbx_padd 2020:11:11:17:06:46:SJ cbx_parallel_add 2020:11:11:17:06:46:SJ cbx_stratix 2020:11:11:17:06:46:SJ cbx_stratixii 2020:11:11:17:06:46:SJ cbx_util_mgl 2020:11:11:17:06:46:SJ  VERSION_END
+
+
+-- Copyright (C) 2020  Intel Corporation. All rights reserved.
+--  Your use of Intel Corporation's design tools, logic functions 
+--  and other software and tools, and any partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Intel Program License 
+--  Subscription Agreement, the Intel Quartus Prime License Agreement,
+--  the Intel FPGA IP License Agreement, or other applicable license
+--  agreement, including, without limitation, that your use is for
+--  the sole purpose of programming logic devices manufactured by
+--  Intel and sold by Intel or its authorized distributors.  Please
+--  refer to the applicable agreement for further details, at
+--  https://fpgasoftware.intel.com/eula.
+
+
+FUNCTION soft (in)
+RETURNS ( out);
+
+--synthesis_resources = lut 13 
+SUBDESIGN par_add_o2e
+( 
+	data[21..0]	:	input;
+	result[10..0]	:	output;
+) 
+VARIABLE
+	add1_result[12..0]	:	WIRE;
+	sft2a[12..0] : soft;
+	sft3a[12..0] : soft;
+	sft4a[12..0] : soft;
+	w39w	: WIRE;
+	w64w	: WIRE;
+	w81w[12..0]	: WIRE;
+
+BEGIN 
+	add1_result[] = sft2a[].out + sft3a[].out;
+	sft2a[].in = ( w39w, ( w39w, ( (! data[10..10]), ( data[9..9], ( data[8..8], ( data[7..7], ( data[6..6], ( data[5..5], ( data[4..4], ( data[3..3], ( data[2..2], ( data[1..0]))))))))))));
+	sft3a[].in = ( w64w, ( w64w, ( (! data[21..21]), ( data[20..20], ( data[19..19], ( data[18..18], ( data[17..17], ( data[16..16], ( data[15..15], ( data[14..14], ( data[13..13], ( data[12..11]))))))))))));
+	sft4a[].in = add1_result[];
+	result[10..0] = w81w[10..0];
+	w39w = B"1";
+	w64w = B"0";
+	w81w[] = ( sft4a[12..11].out, sft4a[10..9].out, sft4a[8..7].out, sft4a[6..5].out, sft4a[4..3].out, sft4a[2..1].out, sft4a[0..0].out);
+END;
+--VALID FILE
