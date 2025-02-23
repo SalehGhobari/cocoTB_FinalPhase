@@ -43,6 +43,7 @@ module dual_issue_inst_mem (
 	addressstall_a,
 	addressstall_b,
 	clock,
+	enable,
 	q_a,
 	q_b);
 
@@ -51,6 +52,7 @@ module dual_issue_inst_mem (
 	input	  addressstall_a;
 	input	  addressstall_b;
 	input	  clock;
+	input	  enable;
 	output	[31:0]  q_a;
 	output	[31:0]  q_b;
 `ifndef ALTERA_RESERVED_QIS
@@ -59,6 +61,7 @@ module dual_issue_inst_mem (
 	tri0	  addressstall_a;
 	tri0	  addressstall_b;
 	tri1	  clock;
+	tri1	  enable;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
@@ -76,6 +79,7 @@ module dual_issue_inst_mem (
 				.addressstall_a (addressstall_a),
 				.addressstall_b (addressstall_b),
 				.clock0 (clock),
+				.clocken0 (enable),
 				.data_a (sub_wire0),
 				.data_b (sub_wire0),
 				.wren_a (sub_wire1),
@@ -89,7 +93,6 @@ module dual_issue_inst_mem (
 				.byteena_a (),
 				.byteena_b (),
 				.clock1 (),
-				.clocken0 (),
 				.clocken1 (),
 				.clocken2 (),
 				.clocken3 (),
@@ -100,8 +103,8 @@ module dual_issue_inst_mem (
 				);
 	defparam
 		altsyncram_component.address_reg_b = "CLOCK0",
-		altsyncram_component.clock_enable_input_a = "BYPASS",
-		altsyncram_component.clock_enable_input_b = "BYPASS",
+		altsyncram_component.clock_enable_input_a = "NORMAL",
+		altsyncram_component.clock_enable_input_b = "NORMAL",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
 		altsyncram_component.clock_enable_output_b = "BYPASS",
 		altsyncram_component.indata_reg_b = "CLOCK0",
@@ -139,10 +142,10 @@ endmodule
 // Retrieval info: PRIVATE: BYTE_ENABLE_B NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_SIZE NUMERIC "1"
 // Retrieval info: PRIVATE: BlankMemory NUMERIC "0"
-// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "0"
-// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_B NUMERIC "0"
-// Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_A NUMERIC "0"
-// Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_B NUMERIC "0"
+// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "1"
+// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_B NUMERIC "1"
+// Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_A NUMERIC "1"
+// Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_B NUMERIC "1"
 // Retrieval info: PRIVATE: CLRdata NUMERIC "0"
 // Retrieval info: PRIVATE: CLRq NUMERIC "0"
 // Retrieval info: PRIVATE: CLRrdaddress NUMERIC "0"
@@ -186,12 +189,12 @@ endmodule
 // Retrieval info: PRIVATE: WRADDR_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: WRADDR_REG_B NUMERIC "1"
 // Retrieval info: PRIVATE: WRCTRL_ACLR_B NUMERIC "0"
-// Retrieval info: PRIVATE: enable NUMERIC "0"
+// Retrieval info: PRIVATE: enable NUMERIC "1"
 // Retrieval info: PRIVATE: rden NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: ADDRESS_REG_B STRING "CLOCK0"
-// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
-// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_B STRING "BYPASS"
+// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "NORMAL"
+// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_B STRING "NORMAL"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK0"
@@ -219,6 +222,7 @@ endmodule
 // Retrieval info: USED_PORT: addressstall_a 0 0 0 0 INPUT GND "addressstall_a"
 // Retrieval info: USED_PORT: addressstall_b 0 0 0 0 INPUT GND "addressstall_b"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
+// Retrieval info: USED_PORT: enable 0 0 0 0 INPUT VCC "enable"
 // Retrieval info: USED_PORT: q_a 0 0 32 0 OUTPUT NODEFVAL "q_a[31..0]"
 // Retrieval info: USED_PORT: q_b 0 0 32 0 OUTPUT NODEFVAL "q_b[31..0]"
 // Retrieval info: CONNECT: @address_a 0 0 9 0 address_a 0 0 9 0
@@ -226,6 +230,7 @@ endmodule
 // Retrieval info: CONNECT: @addressstall_a 0 0 0 0 addressstall_a 0 0 0 0
 // Retrieval info: CONNECT: @addressstall_b 0 0 0 0 addressstall_b 0 0 0 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
+// Retrieval info: CONNECT: @clocken0 0 0 0 0 enable 0 0 0 0
 // Retrieval info: CONNECT: @data_a 0 0 32 0 GND 0 0 32 0
 // Retrieval info: CONNECT: @data_b 0 0 32 0 GND 0 0 32 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 GND 0 0 0 0

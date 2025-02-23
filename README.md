@@ -9,13 +9,13 @@ This repository contains the Cocotb-based verification framework for a Verilog H
 Ensure the following software is installed and properly configured:
 
 - **Quartus Prime Lite (Free Version)**
-  - Make sure ModelSim (32-bit, bundled with Quartus Prime Lite) is installed and set in the system `PATH` variable.
+  - Make sure ModelSim (32-bit, bundled with Quartus Prime Lite) is installed and set in the system PATH variable.
 - **Python (32-bit version, 3.13.2 recommended as of writing this README)**
   - A 32-bit Python version is required to avoid DLL architecture mismatches with ModelSim.
   - While it is possible to switch to Questa or another simulator, using a 32-bit Python version was the easiest integration approach in this setup.
 - **Git**
   - Windows: Install via [Git for Windows](https://git-scm.com/download/win)
-  - Linux: Install using package manager (`sudo apt install git` or equivalent)
+  - Linux: Install using package manager (sudo apt install git or equivalent)
 - **Make**
   - Windows: Install via [Chocolatey](https://chocolatey.org/install)
     ```sh
@@ -28,7 +28,7 @@ Ensure the following software is installed and properly configured:
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/SalehGhobari/cocoTB.git
+git clone https://github.com/SalehGhobari/cocoTB_FinalPhase.git
 cd cocoTB
 ```
 
@@ -87,38 +87,61 @@ include $(shell cocotb-config --makefiles)/Makefile.sim
 ```
 
 - Modify `MODULE` and `TOPLEVEL` to match the module you want to test.
-- Place the `.mif` files required for any IP modules used in the top-level design inside the `testbenches` directory where the Makefile is located.
-- Testbenches of the individual components contain randomized input sets for functional verification but the top level design was tested using the benchmarks given by the committee.
+- Place the `.mif` files required for any IP modules used in the top-level design inside the testbenches directory where the Makefile is located.
+- Testbenches of the individual components contain randomized input sets for functional verification, but the top-level design was tested using the benchmarks given by the committee.
 - Refer to the [Cocotb documentation](https://docs.cocotb.org/) for further details on using Makefiles.
 
 ### Running Tests
 
-1. **Run the provided script**:
+#### `run.bat` Script
 
-   - On Windows, execute `run.bat` from the repository root:
-     ```sh
-     run.bat
-     ```
-     **Note:** This script only works on Windows and requires the user to be logged into Git with it installed.
+The `run.bat` script automates the entire verification pipeline, performing the following steps:
 
-2. **Navigate to testbenches directory**:
+1. **Runs the Assembler**:
+   - Converts assembly code into machine code and generates `.mif` files for instruction and data memories.
+2. **Loads `.mif` Files**:
+   - Populates instruction and data memory in the Verilog simulation environment.
+3. **Starts the Cocotb Environment**:
+   - Executes the Cocotb-based testbenches using ModelSim.
+4. **Runs Cycle-Accurate Model**:
+   - A reference software model executes the same instructions as the hardware.
+5. **Executes `verify.py`**:
+   - Compares outputs from the Cocotb simulation and the cycle-accurate model.
+6. **Outputs a Comparison Report**:
+   - Generates a text file summarizing discrepancies (if any) between the cycle-accurate model and the HDL verification results.
 
-   ```sh
-   cd cocoTB/testbenches
-   ```
+To run the script on Windows:
 
-3. **Clean previous builds**:
+```sh
+run.bat
+```
 
-   ```sh
-   make clean
-   ```
+**Note:** The script requires Git to be installed and the user to be logged in.
 
-4. **Run the testbench**:
+### Modules Tested
 
-   ```sh
-   make
-   ```
+The following components have been verified:
+
+✅ ORGate4  
+✅ ORGate  
+✅ Adder  
+✅ ANDGate  
+✅ ANDGate3  
+✅ Comparator  
+✅ ProgramCounter  
+✅ ALU  
+✅ ControlUnit  
+✅ Pipes  
+✅ XNOR  
+✅ Mux2x1  
+✅ Mux3to1  
+✅ Mux5to1  
+✅ SignExtender  
+✅ RegisterFile  
+✅ Mux2x1En  
+✅ HazardDetectionUnit  
+✅ ForwardingUnit  
+✅ PcCorrection  
+✅ BranchPredictionUnit  
 
 
-# JoSDC-2024-Verification-cocoTB-
-modules tested : ORGate4 ✅ ORGate ✅ adder ✅ ANDGate ✅ ANDGate3 ✅ Comparator ✅ programCounter ✅ ALU ✅ controlUnit ✅ Pipes ✅ XNOR ✅ mux2x1 ✅ mux3to1 ✅ mux3to1 ✅ mux5to1 ✅ signextender ✅ registerFile ✅  mux2x1En ✅ HazardDetectionUnit ✅ forwardingUnit ✅ pcCorrection ✅ BranchPredictionUnit ✅

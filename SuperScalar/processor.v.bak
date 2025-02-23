@@ -183,7 +183,6 @@ dual_issue_inst_mem instMem(.address_a(nextPC),
 							.addressstall_a(~EnablePCIFID),
 							.addressstall_b(~EnablePCIFID),
 							.clock(clk),
-							.enable (EnablePCIFID),
 							.q_a(instr1),
 							.q_b(instr2));
 
