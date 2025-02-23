@@ -131,7 +131,6 @@ class RF:
                 f.write(str(self.registers[i]) + '\n')
 
     def print_rf(self):
-        #print(f'RF: {" ".join(map(str, self.registers))}')
         logger.warning(f'RF: {self.registers}')
 
 
@@ -519,9 +518,6 @@ def main():
     pc = PC()
     branch_predictor = BPU()
 
-    done_fetching = 0
-    done_at_cycle = 0
-
     cycle = 0
     enable = 1
     
@@ -540,7 +536,7 @@ def main():
             WB_data2 = mux(sel=state.mem_wb2.mem_to_reg,
                            in1=state.mem_wb2.alu_result,
                            in2=state.mem_wb2.memory_read_data,
-                           in3=state.mem_wb2.pc_plus_2)
+                           in3=state.mem_wb1.pc_plus_2)
 
             rf.write_rf(reg_num=state.mem_wb2.write_register, write_data=WB_data2)
 
@@ -848,38 +844,12 @@ def main():
         new_state.ex_mem2.flush(flush=hdu.flush_EX)
         new_state.mem_wb2.flush(flush=hdu.flush_MEM2)
 
-        # print(f'{prediction1=}')
-        # print(f'{prediction2=}')
-        # print(f'{hdu.flush_MEM2=}')
-        # print(f'{branch_taken1=}')
-        # print(f'{state.ex_mem1.prediction=}')
-        # print(f'{branch_predictor.cpc_signal1=}')
-        # print(f'{branch_taken2=}')
-        # print(f'{state.ex_mem2.prediction=}')
-        # print(f'{branch_predictor.cpc_signal2=}')
-        # print(f'{branch_predictor.corrected_pc2=}')
         logger.warning(f'Instruction1(Fetch): {hex(int(instruction1, 2))}')
         logger.warning(f'Instruction2(Fetch): {hex(int(instruction2, 2))}')
-        # print(f'{alu_result1=}')
-        # print(f'{alu_result2=}')
-        # print(f'{next_pc_mux=}')
-        # print(f'{branch_adder_result1=}')
-        # print(f'{branch_adder_result2=}')
         rf.print_rf()
         data_mem.print_dm()
         logger.warning(f'CYCLE_END')
         logger.warning(f'\n')
-
-        # if (instruction1 == instruction2
-        #     and instruction1 == '00000000000000000000000000000000'
-        #     and state.if_id.instruction1 == state.if_id.instruction2 
-        #     and state.if_id.instruction1 == '00000000000000000000000000000000'):
-        #     if not done_fetching:
-        #         done_at_cycle = cycle
-        #     done_fetching = True
-
-        # if done_fetching and cycle - done_at_cycle > 10:
-        #     break
 
         if pc.cur_pc >= INS_MEM_SIZE - 2:
             break

@@ -1,30 +1,28 @@
-ADDI $13, $0, 20
-ADD $11, $0, $0
+ADDI $17, $0, 10
+ANDI $18, $0, 0
+XORI $24, $0, 2
+Outer_Loop: 
+ADD $19, $18, $0
 NOP
-LOOP1: 
-XOR $21, $11, $0
-ADD $12, $0, $0
+LW $25, 0x0($19)
+JAL Mul_Fun
+ADDI $18, $18, 1 
+SW $23, 0x0($19)
+SUB $20, $18, $17
 NOP
-LOOP2:
-XOR $22, $12, $0
-LW $8, 0x0($21)
-LW $9, 0x0($22)
+SLT $1, $20, $0
+BNE $1, $0, Outer_Loop
 NOP
-IF:
-SLT $10, $8, $9 
-BEQ $10, $0, ENDIF
-ADD $3, $8, $0
-ADD $8, $9, $0
-ADD $9, $3, $0
-SW $8, 0x0($21)
+J Finish 
+Mul_Fun:  
+ANDI $23, $0, 0
+ADDI $22, $25, -1
 NOP
-SW $9, 0x0($22)
-ENDIF: 
-ADDI $12, $12, 1
+Mul_Loop:   
+ADDI $22, $22, -1
+ADD $23, $23, $24
+SLT $1, $22, $0
+BEQ $1, $0, Mul_Loop
 NOP
-SLT $10, $12, $13 
-BNE $10, $0, LOOP2
-ADDI $11, $11, 1
-NOP
-SLT $10, $11, $13 
-BNE $10, $0, LOOP1
+JR $31 
+Finish:
