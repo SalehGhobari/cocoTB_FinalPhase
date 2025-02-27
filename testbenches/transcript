@@ -6,7 +6,7 @@
 # vmap work sim_build/work 
 # Modifying modelsim.ini
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 02:58:50 on Feb 27,2025
+# Start time: 04:25:41 on Feb 27,2025
 # vlog -work work "+define+COCOTB_SIM" -sv -timescale 1ns/1ps -mfcu "+acc" C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/ALU.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/ANDGate.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/BranchPredictionUnit.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/Comparator.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/HazardDetectionUnit.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/ORGate.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/Pipes.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/XNOR.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/adder.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/controlUnit.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/dual_issue_data_memory.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/dual_issue_inst_mem.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/forwardingUnit.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/muxes.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/pcCorrection.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/processor.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/programCounter.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/registerFile.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/signextender.v C:/Users/Saleh/Desktop/cocoTB_FinalPhase/SuperScalar/testbench.v 
 # -- Compiling module ALU
 # -- Compiling module ANDGate
@@ -39,10 +39,10 @@
 # 	AND3Gate
 # 	ORGate4
 # 	testbench
-# End time: 02:58:50 on Feb 27,2025, Elapsed time: 0:00:00
+# End time: 04:25:41 on Feb 27,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -voptargs="+acc" -L work -L lpm_ver -L altera_mf_ver -voptargs="-access=rw+/." -onfinish exit -pli "C:/Users/Saleh/Desktop/cocoTB_FinalPhase/cocoTB_venv/Lib/site-packages/cocotb/libs/cocotbvpi_modelsim.dll" work.processor 
-# Start time: 02:58:50 on Feb 27,2025
+# Start time: 04:25:41 on Feb 27,2025
 # Loading sv_std.std
 # Loading work.processor
 # Loading work.programCounter
@@ -72,10 +72,6 @@
 # Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES
 # Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION
 # Loading C:/Users/Saleh/Desktop/cocoTB_FinalPhase/cocoTB_venv/Lib/site-packages/cocotb/libs/cocotbvpi_modelsim.dll
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: Saleh  Hostname: DESKTOP-F668SFB  ProcessID: 25416
-#           Attempting to use alternate WLF file "./wlft368cte".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft368cte
-# Warning: read_during_write_mode_mixed_ports is assumed as               OLD_DATA
-# Time: 0  Instance: processor.instMem.altsyncram_component.m_default.altsyncram_inst
+#      -.--ns INFO     gpi                                ..mbed\gpi_embed.cpp:109  in set_program_name_in_venv        Using Python virtual environment interpreter at C:\Users\Saleh\Desktop\cocoTB_FinalPhase\cocoTB_venv\Scripts\python
+# 
+#      -.--ns INFO     gpi                                ..\gpi\GpiCommon.cpp:101  in gpi_print_registered_impl       VPI registered

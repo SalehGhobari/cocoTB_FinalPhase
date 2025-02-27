@@ -227,6 +227,8 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
             if idx >= len(scheduled_instructions) - 1:
                 break
             inst2 = scheduled_instructions[idx + 1]
+        
+        final_schedule.extend(labels)
 
         if idx >= len(scheduled_instructions) - 1:
             break
@@ -243,7 +245,6 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
         if Instruction.should_nop(inst1, inst2):
             final_schedule.append('NOP')
         
-        final_schedule.extend(labels)
         idx += 1
     
     final_schedule.append(repr(scheduled_instructions[-1]))

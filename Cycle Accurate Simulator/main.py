@@ -8,26 +8,28 @@ INS_MEM_SIZE = 256
 DATA_MEM_SIZE = 4096
 DATA_MEM_READ = 50
 
-log_queue = queue.Queue()
-queue_handler = logging.handlers.QueueHandler(log_queue)
+MAX_NOP_COUNT = 10
+
+# log_queue = queue.Queue()
+# queue_handler = logging.handlers.QueueHandler(log_queue)
 logger = logging.getLogger(__name__)
-logger.addHandler(queue_handler)
+# logger.addHandler(queue_handler)
 
 
-def log_writer():
-    with open('cas_out.txt', 'w', buffering=512*512) as f:
-        while True:
-            record = log_queue.get()
-            if record is None:  # Exit signal
-                break
-            f.write(record.getMessage() + "\n")
+# def log_writer():
+#     with open('cas_out.txt', 'w', buffering=1024*1024) as f:
+#         while True:
+#             record = log_queue.get()
+#             if record is None:  # Exit signal
+#                 break
+#             f.write(record.getMessage() + "\n")
 
 
-thread = threading.Thread(target=log_writer, daemon=True)
-thread.start()
+# thread = threading.Thread(target=log_writer, daemon=True)
+# thread.start()
 
-# logfile_handler = logging.FileHandler("cas_out.txt", mode='w')
-# logger.addHandler(logfile_handler)
+logfile_handler = logging.FileHandler("cas_out.txt", mode='w')
+logger.addHandler(logfile_handler)
 
 
 class MEM_WB:
@@ -320,13 +322,9 @@ def alu(operand1, operand2, alu_shamt, op_sel):
 
     match op_sel:
         case 0:  # add
-            result = operand1 + operand2
-            if result >> 31 == 1:
-                result = (result - 2**32) & (2**32-1)
+            result = (operand1 + operand2) & (2**32-1)
         case 1:  # sub
-            result = operand1 - operand2
-            if result >> 31 == 1:
-                result = (result - 2**32) & (2**32-1)
+            result = (operand1 - operand2) & (2**32-1)
         case 2:  # and
             result = operand1 & operand2
         case 3:  # or
@@ -340,12 +338,12 @@ def alu(operand1, operand2, alu_shamt, op_sel):
         case 7:  # xor
             result = operand1 ^ operand2
         case 8:  # sll
-            result = (operand2 << alu_shamt) & (2 ** 32 - 1)
+            result = (operand2 << alu_shamt) & (2**32 - 1)
         case 9:  # srl
             result = operand2 >> alu_shamt
     zero = int(result == 0)
 
-    return result, _overflow, zero
+    return (result & (2**32 - 1)), _overflow, zero
 
 
 def cu(cu_op_code, cu_funct, cu_stall):
@@ -537,6 +535,9 @@ def main():
 
     cycle = 0
     enable = 1
+
+    instruction_count = 0
+    nop_count = 0
     
     while True:
         new_state = State()
@@ -832,8 +833,22 @@ def main():
         cpc_mux = mux(sel=branch_predictor.cpc_signal2, in1=branch_predictor.corrected_pc1, in2=branch_predictor.corrected_pc2)
         next_pc_mux = mux(sel=branch_predictor.cpc_signal, in1=pc_mux, in2=cpc_mux)
 
+        if instruction1 != '00000000000000000000000000000000':
+            instruction_count += 1
+        if instruction2 != '00000000000000000000000000000000':
+            instruction_count += 1
+
+        if instruction1 == '00000000000000000000000000000000' and instruction2 == '00000000000000000000000000000000':
+            nop_count += 2
+        elif instruction2 == '00000000000000000000000000000000':
+            nop_count += 1
+        else:
+            nop_count = 0
+
         # logger.warning(f'CYCLE_START')
-        logger.warning(f'cycle: {cycle}, PC: {pc.cur_pc}, reg10: {rf.read_rf(10)}')
+        if not cycle % 10000:
+            logger.warning(f'cycle: {cycle}, PC: {pc.cur_pc}')
+            data_mem.dm_to_file()
         
         enable_pc_IF_ID = (not stall) and enable or branch_predictor.cpc_signal
         if enable_pc_IF_ID:
@@ -875,14 +890,20 @@ def main():
         # logger.warning(f'CYCLE_END')
         # logger.warning(f'\n')
 
-        if pc.cur_pc >= INS_MEM_SIZE - 2:
-            break
+        # if pc.cur_pc >= INS_MEM_SIZE - 2:
+        #     break
 
         cycle += 1
+
+        if nop_count >= MAX_NOP_COUNT:
+            break
+
         state = deepcopy(new_state)
 
     data_mem.dm_to_file()
     rf.out_rf()
+    rf.print_rf()
+    print(f'IPC: {instruction_count/(cycle - MAX_NOP_COUNT/2)}')
 
 
 if __name__ == '__main__':

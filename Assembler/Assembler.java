@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -391,76 +392,76 @@ public class Assembler {
         
         return parsed;
     }
-    // public static void dataMemConversion (){
-    //     List <String> dataMemNumbers=new ArrayList<>();
-    //     try{
-    //     BufferedReader reader = Files.newBufferedReader(Paths.get("../Cycle Accurate Simulator/data_content.txt"));
-    //     while (reader.ready()) {
-    //         dataMemNumbers.add(reader.readLine());
-    //     }
-    //     reader.close();
-    //     }catch(Exception e){
-    //         e.printStackTrace();
-    //     }
-    //     List<Integer> numbers = new ArrayList<>();
-    //     for (String string : dataMemNumbers) {
-    //         numbers.add(stringToInt(string));
-    //     }
-    //     List <String> dataMemList = new ArrayList<>();
-    //     try{
-    //         BufferedWriter dataMemWriter = Files.newBufferedWriter(Paths.get("../Cycle Accurate Simulator/data_mem.txt"));
-    //         int address= 0;
-    //         for (int number : numbers) {
-    //             dataMemWriter.write(String.valueOf(number));
-    //             dataMemWriter.newLine();
-    //             address++;
-    //         }
-    //         while (address<4096) {
-    //             dataMemWriter.write("0");
-    //             dataMemWriter.newLine();
-    //             address++;
-    //         }
-    //         dataMemWriter.close();
-    //     }catch(Exception e){
-    //         e.printStackTrace();
-    //     }
-    //     for (int number : numbers) {
-    //        dataMemList.add(toBinary(number, 32));
-    //     }
-    //     try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("../SuperScalar/dual_issue_data_memory.mif"))) {
-    //         writer.write("WIDTH=32;");
-    //         writer.newLine();
-    //         writer.write("DEPTH=4096;");
-    //         writer.newLine();
-    //         writer.write("ADDRESS_RADIX=UNS;");
-    //         writer.newLine();
-    //         writer.write("DATA_RADIX=BIN;");
-    //         writer.newLine();
-    //         writer.write("CONTENT BEGIN");
-    //         writer.newLine();
-    //         int addr = 0;
-    //         // Write actual instructions
-    //         for (String code : dataMemList) {
-    //             writer.write("  "+addr +" : " +code +";");
-    //             writer.newLine();
-    //             addr++;
-    //         }
-    //         // Fill remaining lines with zeros up to 512
-    //         if (addr < 4096) {
-    //             writer.write(" ["+addr+"..4095] : 00000000000000000000000000000000; -- fill the rest with zeros ");
-    //             writer.newLine();
-    //             addr++;
-    //         }
-    //         writer.write("END;");
-    //         writer.newLine();
-    //     }
-    //     catch(Exception e){
-    //         e.printStackTrace();
-    //     }
-    // }
+    public static void dataMemConversion (){
+        List <String> dataMemNumbers=new ArrayList<>();
+        try{
+        BufferedReader reader = Files.newBufferedReader(Paths.get("data_content.txt"));
+        while (reader.ready()) {
+            dataMemNumbers.add(reader.readLine());
+        }
+        reader.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        List<Integer> numbers = new ArrayList<>();
+        for (String string : dataMemNumbers) {
+            numbers.add(stringToInt(string));
+        }
+        List <String> dataMemList = new ArrayList<>();
+        try{
+            BufferedWriter dataMemWriter = Files.newBufferedWriter(Paths.get("../Cycle Accurate Simulator/data_mem.txt"));
+            int address= 0;
+            for (int number : numbers) {
+                dataMemWriter.write(String.valueOf(number));
+                dataMemWriter.newLine();
+                address++;
+            }
+            while (address<4096) {
+                dataMemWriter.write("0");
+                dataMemWriter.newLine();
+                address++;
+            }
+            dataMemWriter.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        for (int number : numbers) {
+           dataMemList.add(toBinary(number, 32));
+        }
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("../testbenches/dual_issue_data_memory.mif"))) {
+            writer.write("WIDTH=32;");
+            writer.newLine();
+            writer.write("DEPTH=4096;");
+            writer.newLine();
+            writer.write("ADDRESS_RADIX=UNS;");
+            writer.newLine();
+            writer.write("DATA_RADIX=BIN;");
+            writer.newLine();
+            writer.write("CONTENT BEGIN");
+            writer.newLine();
+            int addr = 0;
+            // Write actual instructions
+            for (String code : dataMemList) {
+                writer.write("  "+addr +" : " +code +";");
+                writer.newLine();
+                addr++;
+            }
+            // Fill remaining lines with zeros up to 512
+            if (addr < 4096) {
+                writer.write(" ["+addr+"..4095] : 00000000000000000000000000000000; -- fill the rest with zeros ");
+                writer.newLine();
+                addr++;
+            }
+            writer.write("END;");
+            writer.newLine();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         try {
-            // dataMemConversion();
+            dataMemConversion();
             Assembler assembler = new Assembler();
             List<String> lines = Files.readAllLines(Paths.get("scheduled_output.txt"));
             String[] scheduledProgram = lines.toArray(new String[0]);
