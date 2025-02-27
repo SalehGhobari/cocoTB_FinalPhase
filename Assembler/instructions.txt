@@ -1,21 +1,180 @@
-ADDI $17, $0, 10
-ANDI $18, $0, 0
-XORI $24, $0, 2
-Outer_Loop: 
-ADD $19, $18, $0
-LW $25, 0x0($19)
-JAL Mul_Fun
-SW $23, 0x0($19)
-ADDI $18, $18, 1 
-SUB $20, $18, $17
-BLTZ $20, Outer_Loop 
-J Finish 
-Mul_Fun:  
-ANDI $23, $0, 0
-ADDI $22, $25, -1
-Mul_Loop:   
-ADD $23, $23, $24
-ADDI $22, $22, -1
-BGEZ $22, Mul_Loop 
-JR $31 
-Finish:
+addi $29, $0, 4000  
+addi $4, $0, 1500  
+addi $5, $0, 0     
+addi $6, $0, 1499   
+jal Mergesort        
+addi $8, $0, 1500 
+addi $9, $0, 1500    
+addi $10, $0, 0       
+addi $11, $0, 0       
+outer_loop:
+slt $1, $11, $9
+beq $1, $0, end_outer
+addi $12, $9, -2           
+slt $1, $11, $12
+beq $1, $0, end_outer
+beq $11, $0, skip_duplicate_i 
+sll $13, $11, 0    
+add $14, $8, $13        
+lw $15, 0($14)         
+lw $24, -1($14)        
+beq $15, $24, next_i 
+skip_duplicate_i:
+addi $25, $11, 1       
+addi $16, $9, -1     
+inner_loop:
+slt $1, $25, $16
+beq $1, $0, next_i
+sll $17, $11, 0         
+add $18, $8, $17        
+lw $19, 0($18)           
+sll $20, $25, 0          
+add $21, $8, $20        
+lw $22, 0($21)           
+sll $23, $16, 0          
+add $13, $8, $23       
+lw $14, 0($13)           
+add $15, $19, $22        
+add $15, $15, $14    
+bne $15, $0, not_zero  
+addi $10, $10, 1       
+addi $25, $25, 1         
+addi $16, $16, -1       
+skip_left_duplicates:
+slt $1, $25, $16
+beq $1, $0, next_i 
+sll $17, $25, 0      
+add $18, $8, $17         
+lw $19, 0($18)           
+lw $20, -1($18)          
+bne $19, $20, skip_right_duplicates 
+addi $25, $25, 1         
+j skip_left_duplicates
+skip_right_duplicates:
+sll $17, $16, 0       
+add $18, $8, $17        
+lw $19, 0($18)           
+lw $20, 1($18)           
+bne $19, $20, inner_loop 
+addi $16, $16, -1        
+j skip_right_duplicates
+not_zero:
+bltz $15, move_left    
+addi $16, $16, -1        
+j inner_loop
+move_left:
+addi $25, $25, 1         
+j inner_loop
+next_i:
+addi $11, $11, 1         
+j outer_loop
+end_outer:
+j Exit
+Mergesort: 
+slt $1, $5, $6
+beq $1, $0, Return
+addi $29, $29, -4
+sw $31, 3($29)      
+sw $5, 2($29)
+sw $6, 1($29)  
+add $16, $5, $6
+srl $16, $16, 1
+sw $16, 0($29) 
+add $6, $16, $0 
+jal Mergesort
+lw $16, 0($29)
+addi $17, $16, 1
+add $5, $17, $0 
+lw $6, 1($29)
+jal Mergesort 
+lw $5, 2($29)  
+lw $6, 1($29)  
+lw $7, 0($29) 
+jal Merge
+lw $31, 3($29)
+addi $29, $29, 4
+jr  $31
+Return:
+jr $31 
+Merge:
+add  $16, $5, $0 
+add  $17, $5, $0 
+addi $18, $7, 1  
+While1: 
+slt $1, $7, $16
+bne $1, $0, While2
+slt $1, $6, $18
+bne $1, $0, While2
+j  If
+If:
+sll  $8, $16, 0
+add  $8, $8, $4
+lw   $9, 0($8)
+sll  $10, $18, 0
+add  $10, $10, $4
+lw   $11, 0($10)
+slt $1, $11, $9
+bne $1, $0, Else
+addi $12, $0, 0
+sll  $13, $17, 0
+add  $12, $12, $13
+sw   $9, 0($12)
+addi $17, $17, 1
+addi $16, $16, 1
+j    While1
+Else:
+sll  $10, $18, 0
+add  $10, $10, $4
+lw   $11, 0($10)
+addi $12, $0, 0
+sll  $13, $17, 0
+add  $12, $12, $13
+sw   $11, 0($12)
+addi $17, $17, 1
+addi $18, $18, 1
+j    While1
+While2:
+slt $1, $7, $16
+bne $1, $0, While3
+sll $8, $16, 0
+add $8, $4, $8
+lw $9, 0($8)
+addi $10, $0, 0
+sll $11, $17, 0   
+add $11, $11, $10
+sw $9, 0($11) 
+addi $17, $17, 1 
+addi $16, $16, 1  
+j While2
+While3:
+slt $1, $6, $17
+bne $1, $0, For_Initializer
+sll $10, $18, 0
+add $10, $10, $4  
+lw $11, 0($10)     
+addi  $12, $0, 0
+sll $13, $17, 0 
+add $12, $12, $13  
+sw $11, 0($12)     
+addi $17, $17, 1 
+addi $18, $18, 1  
+j While3
+For_Initializer:
+add  $8, $5, $0
+addi $9, $6, 1 
+addi $12, $0, 0
+j    For
+For:
+slt $1, $8, $9
+beq $1, $0, sortEnd
+sll $10, $8, 0 
+add $11, $10, $4
+add $13, $10, $12
+lw $14, 0($13)
+sw $14, 0($11)   
+addi $8, $8, 1 
+j For 
+sortEnd:
+jr $31
+Exit:
+addi $6, $5, 1209

@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -343,134 +341,126 @@ public class Assembler {
         String str = input.trim().toLowerCase();
         
         try {
-            //Hex number
+            // Hex number
             if (str.startsWith("0x") || str.startsWith("#")) {
-                return Integer.parseInt(str.substring(2), 16);
+                String hexValue = str.startsWith("#") ? str.substring(1) : str.substring(2);
+                return (int) parseSignedValue(hexValue, 16);
             }
             
-            //binary number 
+            // Binary number with 0b prefix
             if (str.startsWith("0b")) {
-                return Integer.parseInt(str.substring(2), 2);
+                return (int) parseSignedValue(str.substring(2), 2);
             }
             
-            //binary without prefix (only 0s and 1s)
+            // Binary without prefix (only 0s and 1s)
             if (str.matches("[01]+")) {
-                return Integer.parseInt(str, 2);
+                return (int) parseSignedValue(str, 2);
             }
             
-            //octal number (starts with 0)
+            // Octal number (starts with 0)
             if (str.startsWith("0") && str.length() > 1) {
-                return Integer.parseInt(str.substring(1), 8);
+                return (int) parseSignedValue(str.substring(1), 8);
             }
             
-            //decimal
+            // Decimal
             return Integer.parseInt(str);
             
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid number format: " + input);
         }
     }
-    public static void dataMemConversion (){
-        List <String> dataMemNumbers=new ArrayList<>();
-        try{
-        BufferedReader reader = Files.newBufferedReader(Paths.get("data_content.txt"));
-        while (reader.ready()) {
-            dataMemNumbers.add(reader.readLine());
+    
+    // Helper method to handle signed values
+    private static long parseSignedValue(String value, int radix) {
+        // Parse as unsigned value first
+        long parsed = Long.parseLong(value, radix);
+        
+        // Calculate the bit length of the parsed value
+        int bitLength = value.length() * (radix == 16 ? 4 : 
+                                         radix == 8 ? 3 : 
+                                         radix == 2 ? 1 : 4);
+        
+        // Cap the bit length at 32 bits (int size)
+        bitLength = Math.min(bitLength, 32);
+        
+        // Check if highest bit is set and value fits in the expected bit length
+        if (bitLength == 32 && (parsed & 0x80000000L) != 0) {
+            // Apply two's complement conversion
+            parsed = parsed | ~0xFFFFFFFFL;
         }
-        reader.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        List<Integer> numbers = new ArrayList<>();
-        for (String string : dataMemNumbers) {
-            numbers.add(stringToInt(string));
-        }
-        List <String> dataMemList = new ArrayList<>();
-        try{
-            BufferedWriter dataMemWriter = Files.newBufferedWriter(Paths.get("../Cycle Accurate Simulator/data_mem.txt"));
-            int address= 0;
-            for (int number : numbers) {
-                dataMemWriter.write(String.valueOf(number));
-                dataMemWriter.newLine();
-                address++;
-            }
-            while (address<4096) {
-                dataMemWriter.write("0");
-                dataMemWriter.newLine();
-                address++;
-            }
-            dataMemWriter.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        for (int number : numbers) {
-           dataMemList.add(toBinary(number, 32));
-        }
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("../testbenches/dual_issue_data_memory.mif"))) {
-            writer.write("WIDTH=32;");
-            writer.newLine();
-            writer.write("DEPTH=4096;");
-            writer.newLine();
-            writer.write("ADDRESS_RADIX=UNS;");
-            writer.newLine();
-            writer.write("DATA_RADIX=BIN;");
-            writer.newLine();
-            writer.write("CONTENT BEGIN");
-            writer.newLine();
-            int addr = 0;
-            // Write actual instructions
-            for (String code : dataMemList) {
-                writer.write("  "+addr +" : " +code +";");
-                writer.newLine();
-                addr++;
-            }
-            // Fill remaining lines with zeros up to 512
-            if (addr < 4096) {
-                writer.write(" ["+addr+"..4095] : 00000000000000000000000000000000; -- fill the rest with zeros ");
-                writer.newLine();
-                addr++;
-            }
-            writer.write("END;");
-            writer.newLine();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("../SuperScalar/dual_issue_data_memory.mif"))) {
-            writer.write("WIDTH=32;");
-            writer.newLine();
-            writer.write("DEPTH=4096;");
-            writer.newLine();
-            writer.write("ADDRESS_RADIX=UNS;");
-            writer.newLine();
-            writer.write("DATA_RADIX=BIN;");
-            writer.newLine();
-            writer.write("CONTENT BEGIN");
-            writer.newLine();
-            int addr = 0;
-            // Write actual instructions
-            for (String code : dataMemList) {
-                writer.write("  "+addr +" : " +code +";");
-                writer.newLine();
-                addr++;
-            }
-            // Fill remaining lines with zeros up to 512
-            if (addr < 4096) {
-                writer.write(" ["+addr+"..4095] : 00000000000000000000000000000000; -- fill the rest with zeros ");
-                writer.newLine();
-                addr++;
-            }
-            writer.write("END;");
-            writer.newLine();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
+        
+        return parsed;
     }
+    // public static void dataMemConversion (){
+    //     List <String> dataMemNumbers=new ArrayList<>();
+    //     try{
+    //     BufferedReader reader = Files.newBufferedReader(Paths.get("../Cycle Accurate Simulator/data_content.txt"));
+    //     while (reader.ready()) {
+    //         dataMemNumbers.add(reader.readLine());
+    //     }
+    //     reader.close();
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //     }
+    //     List<Integer> numbers = new ArrayList<>();
+    //     for (String string : dataMemNumbers) {
+    //         numbers.add(stringToInt(string));
+    //     }
+    //     List <String> dataMemList = new ArrayList<>();
+    //     try{
+    //         BufferedWriter dataMemWriter = Files.newBufferedWriter(Paths.get("../Cycle Accurate Simulator/data_mem.txt"));
+    //         int address= 0;
+    //         for (int number : numbers) {
+    //             dataMemWriter.write(String.valueOf(number));
+    //             dataMemWriter.newLine();
+    //             address++;
+    //         }
+    //         while (address<4096) {
+    //             dataMemWriter.write("0");
+    //             dataMemWriter.newLine();
+    //             address++;
+    //         }
+    //         dataMemWriter.close();
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //     }
+    //     for (int number : numbers) {
+    //        dataMemList.add(toBinary(number, 32));
+    //     }
+    //     try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("../SuperScalar/dual_issue_data_memory.mif"))) {
+    //         writer.write("WIDTH=32;");
+    //         writer.newLine();
+    //         writer.write("DEPTH=4096;");
+    //         writer.newLine();
+    //         writer.write("ADDRESS_RADIX=UNS;");
+    //         writer.newLine();
+    //         writer.write("DATA_RADIX=BIN;");
+    //         writer.newLine();
+    //         writer.write("CONTENT BEGIN");
+    //         writer.newLine();
+    //         int addr = 0;
+    //         // Write actual instructions
+    //         for (String code : dataMemList) {
+    //             writer.write("  "+addr +" : " +code +";");
+    //             writer.newLine();
+    //             addr++;
+    //         }
+    //         // Fill remaining lines with zeros up to 512
+    //         if (addr < 4096) {
+    //             writer.write(" ["+addr+"..4095] : 00000000000000000000000000000000; -- fill the rest with zeros ");
+    //             writer.newLine();
+    //             addr++;
+    //         }
+    //         writer.write("END;");
+    //         writer.newLine();
+    //     }
+    //     catch(Exception e){
+    //         e.printStackTrace();
+    //     }
+    // }
     public static void main(String[] args) {
         try {
-            dataMemConversion();
+            // dataMemConversion();
             Assembler assembler = new Assembler();
             List<String> lines = Files.readAllLines(Paths.get("scheduled_output.txt"));
             String[] scheduledProgram = lines.toArray(new String[0]);
@@ -489,7 +479,7 @@ public class Assembler {
                 
                 // Fill remaining lines with zeros up to 512
                 String zeros = "00000000000000000000000000000000";
-                while (addr < 512) {
+                while (addr < 256) {
                     writer.write(zeros);
                     writer.newLine();
                     addr++;
@@ -503,7 +493,7 @@ public class Assembler {
             // }
             // System.out.println("*****************************************************");
             System.out.println("WIDTH=32;");
-            System.out.println("DEPTH=512;");
+            System.out.println("DEPTH=256;");
             System.out.println("ADDRESS_RADIX=UNS;");
             System.out.println("DATA_RADIX=BIN;");
             System.out.println("CONTENT BEGIN");
@@ -513,8 +503,8 @@ public class Assembler {
                 System.out.printf("    %d   : %s;\n", addr++, code);
             }
 
-            if (addr < 512) {
-                System.out.printf("    [%d..511] : %s;  -- fill the rest with zeros\n",
+            if (addr < 256) {
+                System.out.printf("    [%d..255] : %s;  -- fill the rest with zeros\n",
                         addr, "00000000000000000000000000000000");
             }
 

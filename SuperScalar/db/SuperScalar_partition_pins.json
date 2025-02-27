@@ -36,10 +36,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "PC[8]",
-					"strict" : false
-				},
-				{
 					"name" : "clk",
 					"strict" : false
 				},

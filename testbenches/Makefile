@@ -19,6 +19,7 @@ SIM_ARGS += -voptargs=+acc
 SIM_ARGS += -L work
 SIM_ARGS += -L lpm_ver
 SIM_ARGS += -L altera_mf_ver
+SIM_ARGS += -voptargs="-access=rw+/."
 
 
 include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -20,7 +20,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition"
 
-## DATE    "Sat Feb 22 18:42:24 2025"
+## DATE    "Wed Feb 26 20:35:55 2025"
 
 ##
 ## DEVICE  "10M50DAF484C7G"
@@ -39,7 +39,7 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clk} -period 14.100 -waveform { 0.000 6.750 } [get_ports { clk }]
+create_clock -name {clk} -period 14.450 -waveform { 0.000 7.100 } [get_ports { clk }]
 
 
 #**************************************************************
@@ -68,9 +68,6 @@ set_clock_uncertainty -fall_from [get_clocks {clk}] -fall_to [get_clocks {clk}] 
 # Set Input Delay
 #**************************************************************
 
-set_input_delay -add_delay  -clock [get_clocks {clk}]  2.000 [get_ports {clk}]
-set_input_delay -add_delay  -clock [get_clocks {clk}]  2.000 [get_ports {enable}]
-set_input_delay -add_delay  -clock [get_clocks {clk}]  2.000 [get_ports {rst}]
 
 
 #**************************************************************

@@ -1,13 +1,33 @@
 import logging
+import logging.handlers
+import queue
+import threading
 from copy import deepcopy
 
-INS_MEM_SIZE = 512
+INS_MEM_SIZE = 256
 DATA_MEM_SIZE = 4096
 DATA_MEM_READ = 50
 
+log_queue = queue.Queue()
+queue_handler = logging.handlers.QueueHandler(log_queue)
 logger = logging.getLogger(__name__)
-logfile_handler = logging.FileHandler("cas_out.txt", mode='w')
-logger.addHandler(logfile_handler)
+logger.addHandler(queue_handler)
+
+
+def log_writer():
+    with open('cas_out.txt', 'w', buffering=512*512) as f:
+        while True:
+            record = log_queue.get()
+            if record is None:  # Exit signal
+                break
+            f.write(record.getMessage() + "\n")
+
+
+thread = threading.Thread(target=log_writer, daemon=True)
+thread.start()
+
+# logfile_handler = logging.FileHandler("cas_out.txt", mode='w')
+# logger.addHandler(logfile_handler)
 
 
 class MEM_WB:
@@ -115,7 +135,7 @@ class State:
 class RF:
     def __init__(self):
         self.registers = []
-        for i in range(32):
+        for _ in range(32):
             self.registers.append(0)
 
     def read_rf(self, reg_num):
@@ -127,8 +147,8 @@ class RF:
 
     def out_rf(self):
         with open('rf_result.txt', 'w') as f:
-            for i in range(32):
-                f.write(str(self.registers[i]) + '\n')
+            for idx in range(32):
+                f.write(str(self.registers[idx]) + '\n')
 
     def print_rf(self):
         logger.warning(f'RF: {self.registers}')
@@ -136,34 +156,27 @@ class RF:
 
 class DataMem:
     def __init__(self):
-        # with open('data_mem.txt', 'w') as f:
-        #     for _ in range(DATA_MEM_SIZE):
-        #         f.write(str(0) + '\n')
-        pass
+        self.data_mem_array = []
+        self.init_dm()
 
-    @staticmethod
-    def write_dm(address, data):
-        with open('data_mem.txt', 'r') as f:
-            read_data = f.read().split('\n')
-        read_data[address] = str(data)
-        with open('data_mem.txt', 'w') as f:
-            for idx, line in enumerate(read_data):
-                if idx < DATA_MEM_SIZE - 1:
-                    f.write(f'{line}\n')
-                else:
-                    f.write(line)
-
-    @staticmethod
-    def read_dm(address):
+    def init_dm(self):
         with open('data_mem.txt', 'r') as f:
             read_data = f.readlines()
-        return int(read_data[address])
+        self.data_mem_array = list(map(int, read_data))
 
-    @staticmethod
-    def print_dm():
-        with open('data_mem.txt', 'r') as f:
-            read_data = f.readlines()
-        logger.warning(f'DM: {list(map(int, read_data[0:DATA_MEM_READ]))}')
+    def read_dm(self, address):
+        return self.data_mem_array[address]
+    
+    def print_dm(self):
+        logger.warning(f'DM: {self.data_mem_array[0:DATA_MEM_READ]}')
+
+    def write_dm(self, address, data):
+        self.data_mem_array[address] = data
+    
+    def dm_to_file(self):
+        with open('data_mem.txt', 'w') as file_handler:
+            for idx in range(DATA_MEM_SIZE):
+                file_handler.write(str(self.data_mem_array[idx]) + '\n')
 
 
 class InsMem:
@@ -228,8 +241,8 @@ class BPU:
         self.cpc_signal1 = 0
         self.cpc_signal2 = 0
         self.BHT = [1 for _ in range(INS_MEM_SIZE)]
-        self.BTB = [0 for _ in range(64)]
-        self.BTB_valid = [0] * 64
+        self.BTB = [0 for _ in range(INS_MEM_SIZE)]
+        self.BTB_valid = [0] * INS_MEM_SIZE
 
     def predict(self, pc):
         match self.BHT[pc]:
@@ -254,8 +267,8 @@ class BPU:
                 self.BHT[pc] = 3 if branch_taken else 2
 
         if branch_taken:
-            self.BTB[pc & 63] = target
-            self.BTB_valid[pc & 63] = 1
+            self.BTB[pc] = target
+            self.BTB_valid[pc] = 1
 
     def set_corrected_pc(
             self, predictionM1, predictionM2, branch_taken1, branch_taken2,
@@ -308,8 +321,12 @@ def alu(operand1, operand2, alu_shamt, op_sel):
     match op_sel:
         case 0:  # add
             result = operand1 + operand2
+            if result >> 31 == 1:
+                result = (result - 2**32) & (2**32-1)
         case 1:  # sub
             result = operand1 - operand2
+            if result >> 31 == 1:
+                result = (result - 2**32) & (2**32-1)
         case 2:  # and
             result = operand1 & operand2
         case 3:  # or
@@ -726,6 +743,13 @@ def main():
             hdu_stall(state.id_ex2.mem_read, reg_dst_mux2, rs2, rt2)
         )
 
+        jr_stall = (op_code1 == '000000' and funct1 == '001000') and (reg_dst_mux1 == rs1 and reg_dst_mux1 != 0 or reg_dst_mux2 == rs1 and reg_dst_mux2 != 0)
+        jr_stall = jr_stall or ((op_code2 == '000000' and funct2 == '001000') and (reg_dst_mux1 == rs2 and reg_dst_mux1 != 0 or reg_dst_mux2 == rs2 and reg_dst_mux2 != 0))
+        jr_stall = jr_stall or ((op_code1 == '000000' and funct1 == '001000') and (state.ex_mem1.write_register == rs1 and state.ex_mem1.write_register != 0 or state.ex_mem2.write_register == rs1 and state.ex_mem2.write_register != 0))
+        jr_stall = jr_stall or ((op_code2 == '000000' and funct2 == '001000') and (state.ex_mem1.write_register == rs2 and state.ex_mem1.write_register != 0 or state.ex_mem2.write_register == rs2 and state.ex_mem2.write_register != 0))
+
+        stall = stall or jr_stall
+
         control_signals1 = cu(cu_op_code=op_code1, cu_funct=funct1, cu_stall=stall)
         control_signals2 = cu(cu_op_code=op_code2, cu_funct=funct2, cu_stall=stall)
 
@@ -787,18 +811,18 @@ def main():
         instruction1 = ins_mem.get_instruction(address=pc.cur_pc)
 
         inst2_address = (
-            branch_predictor.BTB[(pc.cur_pc) & 63]
-            if prediction1 and branch_predictor.BTB_valid[(pc.cur_pc) & 63]
+            branch_predictor.BTB[(pc.cur_pc)]
+            if prediction1 and branch_predictor.BTB_valid[(pc.cur_pc)]
             else pc_plus_1
         )
         instruction2 = ins_mem.get_instruction(address=inst2_address)
 
         pc_plus_2 = (pc.cur_pc + 2) & (INS_MEM_SIZE - 1)
-        branch_adder_result1 = (pc_plus_1 + int(instruction1[-9:], 2)) & (INS_MEM_SIZE - 1)
-        branch_adder_result2 = (pc_plus_2 + int(instruction2[-9:], 2)) & (INS_MEM_SIZE - 1)
+        branch_adder_result1 = (pc_plus_1 + int(instruction1[-8:], 2)) & (INS_MEM_SIZE - 1)
+        branch_adder_result2 = (pc_plus_2 + int(instruction2[-8:], 2)) & (INS_MEM_SIZE - 1)
 
-        jump_mux1 = mux(sel=control_signals1.get('jump'), in1=read_data1 & (INS_MEM_SIZE - 1), in2=int(state.if_id.instruction1[-9:], 2))
-        jump_mux2 = mux(sel=control_signals2.get('jump'), in1=read_data3 & (INS_MEM_SIZE - 1), in2=int(state.if_id.instruction2[-9:], 2))
+        jump_mux1 = mux(sel=control_signals1.get('jump'), in1=read_data1 & (INS_MEM_SIZE - 1), in2=int(state.if_id.instruction1[-8:], 2))
+        jump_mux2 = mux(sel=control_signals2.get('jump'), in1=read_data3 & (INS_MEM_SIZE - 1), in2=int(state.if_id.instruction2[-8:], 2))
         jump_mux = mux(sel=control_signals2.get('pc_src'), in1=jump_mux1, in2=jump_mux2)
 
         branch_mux1 = mux(sel=prediction1, in1=pc_plus_2, in2=(inst2_address + 1) & (INS_MEM_SIZE - 1))
@@ -808,8 +832,8 @@ def main():
         cpc_mux = mux(sel=branch_predictor.cpc_signal2, in1=branch_predictor.corrected_pc1, in2=branch_predictor.corrected_pc2)
         next_pc_mux = mux(sel=branch_predictor.cpc_signal, in1=pc_mux, in2=cpc_mux)
 
-        logger.warning(f'CYCLE_START')
-        logger.warning(f'cycle: {cycle}, PC: {pc.cur_pc}')
+        # logger.warning(f'CYCLE_START')
+        logger.warning(f'cycle: {cycle}, PC: {pc.cur_pc}, reg10: {rf.read_rf(10)}')
         
         enable_pc_IF_ID = (not stall) and enable or branch_predictor.cpc_signal
         if enable_pc_IF_ID:
@@ -844,12 +868,12 @@ def main():
         new_state.ex_mem2.flush(flush=hdu.flush_EX)
         new_state.mem_wb2.flush(flush=hdu.flush_MEM2)
 
-        logger.warning(f'Instruction1(Fetch): {hex(int(instruction1, 2))}')
-        logger.warning(f'Instruction2(Fetch): {hex(int(instruction2, 2))}')
-        rf.print_rf()
-        data_mem.print_dm()
-        logger.warning(f'CYCLE_END')
-        logger.warning(f'\n')
+        # logger.warning(f'Instruction1(Fetch): {hex(int(instruction1, 2))}')
+        # logger.warning(f'Instruction2(Fetch): {hex(int(instruction2, 2))}')
+        # rf.print_rf()
+        # data_mem.print_dm()
+        # logger.warning(f'CYCLE_END')
+        # logger.warning(f'\n')
 
         if pc.cur_pc >= INS_MEM_SIZE - 2:
             break
@@ -857,6 +881,7 @@ def main():
         cycle += 1
         state = deepcopy(new_state)
 
+    data_mem.dm_to_file()
     rf.out_rf()
 
 

@@ -75,7 +75,7 @@ async def processor_test(dut):
     cocotb.start_soon(clock.start())
 
     nop_count = 0
-    max_nops = 5  # Number of consecutive NOPs to detect program end
+    max_nops = 10  # Number of consecutive NOPs to detect program end
 
     total_instructions_executed = 0
     total_cycles = 0
@@ -84,8 +84,6 @@ async def processor_test(dut):
     while True:
         await RisingEdge(dut.clk)
         await Timer(1, units="ns")
-        cocotb.log.warning(f"CYCLE_START")
-        cocotb.log.warning(f"Cycle {cycle}: PC={int(dut.PC.value)}")
         total_cycles = cycle - max_nops + 1
         instr1 = dut.instMem.q_a.value
         instr2 = dut.instMem.q_b.value
@@ -93,11 +91,13 @@ async def processor_test(dut):
         await Timer(1, units="ns")
         registers = to_int(dut.RegFile.registers.value)
         dm_values = to_int(dut.DM.altsyncram_component.m_default.altsyncram_inst.mem_data.value)
-        cocotb.log.warning(f"Instruction1(Fetch)={hex(instr1)} ({decode_instruction(instr1)})")
-        cocotb.log.warning(f"Instruction2(Fetch)={hex(instr2)} ({decode_instruction(instr2)})")
-        cocotb.log.warning(f"RF: {to_int(registers)}")
-        cocotb.log.warning(f"DM: {to_int(dm_values[0:50])}")
-        cocotb.log.warning(f"CYCLE_END")
+        if cycle % 100000 == 0:
+            cocotb.log.warning(f"CYCLE_START\nCycle {cycle}: PC={int(dut.PC.value)}\n\
+            Instruction1(Fetch)={hex(instr1)} ({decode_instruction(instr1)})\n\
+            Instruction2(Fetch)={hex(instr2)} ({decode_instruction(instr2)})\n\
+            RF: {to_int(registers)}\n\
+            DM: {to_int(dm_values[2600:3896])}\n\
+            CYCLE_END")
         
 
         # Count non-NOP instructions

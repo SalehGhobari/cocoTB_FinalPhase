@@ -33,7 +33,7 @@ class Instruction:
         if label.match(instruction_str.upper()) is not None:
             return cls(instruction_str, inst_type='LABEL', is_label=True)
 
-        if instruction_str.upper().startswith('NOP'):
+        if split_inst[0] == 'NOP':
             return cls(instruction_str, inst_type='NOP')
 
         if split_inst[0] in BRANCH:
@@ -94,13 +94,13 @@ class Instruction:
     def should_nop(inst1, inst2):
         return (
             inst1.is_branch_jump and inst2.is_branch_jump or  # branches/jumps possibly in the same packet
-            (inst1.inst_type == 'LW' and inst2.inst_type in BRANCH  # LW -> branch (LW_dest == br_src) dependency
-            and Instruction.are_dependent(inst1, inst2)) or
-            (inst2.inst_type == 'JAL' and Instruction.are_dependent(inst1, inst2)) or  # JAL dependencies
-            (inst2.inst_type == 'JR' and Instruction.are_dependent(inst1, inst2)) or  # JR dependencies
-            not (inst1.is_branch_jump or inst2.is_branch_jump) 
-            and Instruction.are_dependent(inst1, inst2)
-            and not Instruction.is_war_waw(inst1, inst2)
+            Instruction.is_raw(inst1, inst2) and not inst2.inst_type in BRANCH or 
+            inst1.inst_type == 'LW' and Instruction.is_raw(inst1, inst2) or
+            (inst1.inst_type == 'SW'
+            or inst1.inst_type == 'LW')
+            and (inst2.inst_type == 'SW'
+                    or (inst2.inst_type == 'LW' and
+                        inst1.inst_type != 'LW'))
         )
 
     @staticmethod
@@ -130,7 +130,7 @@ class Instruction:
 
 def read_instructions(path_str: str) -> list[str]:
     with open(path_str, 'r') as file_handler:
-        return file_handler.read().strip().split('\n')
+        return [item.split("#", 1)[0] for item in file_handler.read().strip().split('\n')]
 
 
 def topo_sort(start: int, num_of_nodes: int, 
@@ -165,12 +165,13 @@ def topo_sort(start: int, num_of_nodes: int,
                 in_degree[end_node] -= 1
                 if in_degree[end_node] == 0:
                     heapq.heappush(max_heap, (-out_degree[end_node], end_node))
-        
+
         instruction_order.append(inst1)
-        instruction_order.append(inst2)
-    
-    if instruction_order and instruction_order[-1] == -1:
-        instruction_order.pop()
+        if inst2 != -1:
+            instruction_order.append(inst2)
+
+    # if instruction_order and instruction_order[-1] == -1:
+    #     instruction_order.pop()
 
     return instruction_order
 
@@ -201,7 +202,7 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
                 inst2 = instruction_list[inst2_idx]
                 if Instruction.are_dependent(inst1, inst2):
                     adj[inst1_idx].append(inst2_idx)
-        
+
         scheduled_instructions.extend([
             instruction_list[idx] if idx != -1
             else Instruction('NOP', inst_type='NOP')
@@ -210,7 +211,7 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
 
         if ins_range[1] + 1 < len(instruction_list):
             scheduled_instructions.append(instruction_list[ins_range[1] + 1])
-    
+
     final_schedule = []
     idx = 0
     while idx < len(scheduled_instructions) - 1:
@@ -218,6 +219,7 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
         inst2 = scheduled_instructions[idx + 1]
 
         final_schedule.append(repr(inst1))
+
         labels = []
         while inst2.is_label:
             labels.append(repr(inst2))
@@ -229,12 +231,12 @@ def schedule(instruction_list: list[Instruction]) -> list[str]:
         if idx >= len(scheduled_instructions) - 1:
             break
 
-        if inst2.inst_type == 'NOP':
+        while inst2.inst_type == 'NOP':
             idx += 1
             if idx >= len(scheduled_instructions) - 1:
                 break
             inst2 = scheduled_instructions[idx + 1]
-        
+
         if idx >= len(scheduled_instructions) - 1:
             break
 
@@ -254,13 +256,14 @@ def main():
     updated_strings = []
     for inst_str in instruction_strings:
         split_inst_str = inst_str.split()
-        temp_reg = 1
-        if split_inst_str[0] == 'BLTZ':
-            updated_strings.append(f'SLT ${temp_reg}, {split_inst_str[1]} $0')
-            updated_strings.append(f'BNE ${temp_reg}, $0, {split_inst_str[2]}')
-        elif split_inst_str[0] == 'BGEZ':
-            updated_strings.append(f'SLT ${temp_reg}, {split_inst_str[1]} $0')
-            updated_strings.append(f'BEQ ${temp_reg}, $0, {split_inst_str[2]}')
+        temp_reg1 = 1
+        temp_reg2 = 2
+        if split_inst_str[0].upper() == 'BLTZ':
+            updated_strings.append(f'SLT ${temp_reg1}, {split_inst_str[1]} $0')
+            updated_strings.append(f'BNE ${temp_reg1}, $0, {split_inst_str[2]}')
+        elif split_inst_str[0].upper() == 'BGEZ':
+            updated_strings.append(f'SLT ${temp_reg2}, {split_inst_str[1]} $0')
+            updated_strings.append(f'BEQ ${temp_reg2}, $0, {split_inst_str[2]}')
         else:
             updated_strings.append(inst_str)
 
